@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSTM and GRU Networks: Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .collapsible {
+            background-color: #ffffff;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+        .content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        function toggleContent(button) {
+            const content = button.nextElementSibling;
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</head><body><h1>LSTM and GRU Networks: Summary</h1>
+<section>
+<p>Long Short-Term Memory (LSTM) and Gated Recurrent Unit (GRU) networks are types of recurrent neural networks (RNNs) designed to address limitations in traditional RNNs, such as the vanishing gradient problem. These architectures are essential for applications that require modeling sequential data, as they provide mechanisms to retain long-term dependencies in sequences.</p>
+<h3>Background</h3>
+<p>The concept of RNNs was initially proposed to handle sequential data, but early RNNs struggled with long-term dependencies due to the vanishing and exploding gradient problems, as discussed by Bengio, Simard, and Frasconi (1994) <a href="http://www.comp.hkbu.edu.hk/~markus/teaching/comp7650/tnn-94-gradient.pdf" target="_blank" rel="noopener">(Bengio et al., 1994).</a></p>
+<p>LSTM networks were introduced by Hochreiter and Schmidhuber (1997) <a href="https://www.bioinf.jku.at/publications/older/2604.pdf" target="_blank" rel="noopener">(Hochreiter &amp; Schmidhuber, 1997)</a> as a solution to the vanishing gradient problem, using gates to manage information flow. GRUs, introduced by Cho et al. (2014) <a href="https://arxiv.org/pdf/1412.3555" target="_blank" rel="noopener">(Cho et al., 2014)</a>, offer a simpler, more efficient variant of LSTM by combining the forget and input gates into a single update gate.</p>
+</section>
+<section>
+<h3>1. LSTM Networks</h3>
+<p>An LSTM network consists of a memory cell and three gates—forget, input, and output—that control information flow within the cell. The cell state acts as a “memory pipeline” that carries relevant information across time steps, while the gates learn to regulate this flow:</p>
+<ul>
+<li><strong>Forget Gate:</strong> Controls which information to discard from the previous cell state.</li>
+<li><strong>Input Gate:</strong> Determines what new information to add to the cell state.</li>
+<li><strong>Output Gate:</strong> Uses the cell state to decide the next hidden state.</li>
+</ul>
+<h3>2. GRU Networks</h3>
+<p>A GRU simplifies the LSTM architecture by combining the forget and input gates into a single update gate. It has two gates:</p>
+<ul>
+<li><strong>Update Gate:</strong> Decides which information to retain and what to add from the current input.</li>
+<li><strong>Reset Gate:</strong> Determines how much of the previous information to ignore.</li>
+</ul>
+<p>GRUs are computationally more efficient than LSTMs, making them suitable for tasks where shorter training times and reduced memory usage are needed.</p>
+</section>
+<section>
+<h2>Exercises</h2>
+<h3>Exercise 1: Calculate the Forget Gate Output</h3>
+<p>Given:</p>
+<ul>
+<li>Previous hidden state, <code>h(t-1) = [0.5]</code></li>
+<li>Current input, <code>x(t) = [0.3]</code></li>
+<li>Forget gate weight, <code>W(f) = [0.2]</code>, bias, <code>b(f) = 0.1</code></li>
+</ul>
+<p>Calculate the forget gate output for this LSTM cell using the formula:</p>
+<code>f(t) = σ(W(f) * [h(t-1), x(t)] + b(f))</code> <button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p>The combined input is <code>W(f) * [h(t-1), x(t)] + b(f) = 0.2 * 0.5 + 0.2 * 0.3 + 0.1 = 0.36</code>.</p>
+<p>Applying the sigmoid function, <code>σ(0.36) ≈ 0.589</code>.</p>
+<p>The forget gate output is approximately 0.589.</p>
+</div>
+<h3>Exercise 2: Reset Gate Calculation for GRU</h3>
+<p>Given:</p>
+<ul>
+<li>Previous hidden state, <code>h(t-1) = [0.4]</code></li>
+<li>Current input, <code>x(t) = [0.3]</code></li>
+<li>Reset gate weight, <code>W(r) = [0.6]</code>, bias, <code>b(r) = 0.1</code></li>
+</ul>
+<p>Calculate the reset gate output for this GRU cell using the formula:</p>
+<code>r(t) = σ(W(r) * [h(t-1), x(t)] + b(r))</code> <button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p>The combined input is <code>W(r) * [h(t-1), x(t)] + b(r) = 0.6 * 0.4 + 0.6 * 0.3 + 0.1 = 0.46</code>.</p>
+<p>Applying the sigmoid function, <code>σ(0.46) ≈ 0.613</code>.</p>
+<p>The reset gate output is approximately 0.613.</p>
+</div>
+<h3>Exercise 3: Code Implementation</h3>
+<p>Implement a basic LSTM and GRU in PyTorch to predict the next value in a simple sequence. Use a single layer for each model and compare the training times and accuracy on a validation set.</p>
+<pre><code>import torch
+import torch.nn as nn
+
+# Define LSTM Model
+class SimpleLSTM(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(SimpleLSTM, self).__init__()
+        self.lstm = nn.LSTM(input_size, hidden_size)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        out, _ = self.lstm(x)
+        out = self.fc(out[-1])
+        return out
+
+# Define GRU Model
+class SimpleGRU(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(SimpleGRU, self).__init__()
+        self.gru = nn.GRU(input_size, hidden_size)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        out, _ = self.gru(x)
+        out = self.fc(out[-1])
+        return out
+
+# Initialize and train models here...</code></pre>
+<button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p>The main differences you should observe in training times and performance for LSTM and GRU are:</p>
+<ul>
+<li><strong>Training Time:</strong> GRUs often train faster due to fewer gates and parameters.</li>
+<li><strong>Performance:</strong> For simple sequences, both may perform similarly, but LSTMs might outperform GRUs when long-term dependencies are essential.</li>
+</ul>
+</div>
+<h3>Exercise 4: Short Answer</h3>
+<p>Briefly explain the main advantage of using a GRU over an LSTM. In what scenarios might an LSTM be preferable?</p>
+<button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p><strong>Answer:</strong> GRUs are faster to train and use less memory, making them suitable for applications with limited computational power or when training time is critical. LSTMs, however, are preferable when long-term dependencies in the sequence are crucial due to their more complex gating mechanism.</p>
+</div>
+<h3>Additional Exercise 5: Conceptual Question</h3>
+<p>Why do both LSTM and GRU use a sigmoid activation in their gates? How does this help in information flow control?</p>
+<button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p><strong>Answer:</strong> The sigmoid function outputs values between 0 and 1, which allows the gates to control information flow by selectively allowing or blocking certain values. This enables the networks to retain, forget, or update information effectively, essential for sequential data processing.</p>
+</div>
+<h3>Additional Exercise 6: Practical Implementation</h3>
+<p>Create a sequence of random numbers and train an LSTM and GRU model to predict the next number in the sequence. Observe which model converges faster and whether there is a difference in accuracy over time.</p>
+<button class="collapsible" onclick="toggleContent(this)">Show Answer</button>
+<div class="content">
+<p>In practice, GRUs may converge faster due to their simpler architecture. However, depending on the length of the sequence, an LSTM may show higher accuracy in cases with long-term dependencies.</p>
+</div>
+</section>
+<section>
+<p></p>
+</section></body></html>

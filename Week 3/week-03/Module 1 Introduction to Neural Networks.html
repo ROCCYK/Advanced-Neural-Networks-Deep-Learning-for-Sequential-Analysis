@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networks Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #004080;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .example {
+            background-color: #eef;
+            padding: 15px;
+            border-left: 4px solid #004080;
+            margin-bottom: 20px;
+        }
+    </style>
+</head><body><h1>What is a Neural Network?</h1>
+<p>Neural networks are computational models inspired by the structure of the human brain. They consist of interconnected layers of nodes, or "neurons," that process information.</p>
+<h2>Layers of a Neural Network</h2>
+<ul>
+<li><strong>Input Layer:</strong> The first layer, where the raw input data is provided. Each neuron in the input layer represents a feature from the dataset. For example, in the diagram below, the input layer takes two inputs, <code>x1</code> and <code>x2</code>, which represent features of the data.</li>
+<li><strong>Hidden Layers:</strong> These layers lie between the input and output layers. The network can have multiple hidden layers responsible for learning and extracting features from the input data. In the diagram, the hidden layers receive signals from the input neurons, apply transformations, and send the results forward. Each node applies an activation function (denoted by "f" in the diagram) that adds non-linearity to the model, allowing it to capture more complex relationships. The more hidden layers, the deeper and more complex the network becomes, which is why they are often called <em>deep neural networks</em>.</li>
+<li><strong>Output Layer:</strong> The final layer produces the prediction or output. For instance, in a classification problem, the output could be the probability of different classes. In the diagram, the output is calculated after passing through the hidden layers, resulting in a prediction (<code>y'</code>).</li>
+</ul>
+<div class="diagram">
+<h3>Neural Network Structure</h3>
+<img alt="Overview of a Neural Network's Learning Process | by Rukshan Pramoditha |  Data Science 365 | Medium" src="https://miro.medium.com/v2/resize:fit:1400/1*ZXAOUqmlyECgfVa81Sr6Ew.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></div>
+<h2>Forward Propagation</h2>
+<p>In a neural network, the data moves from the input layer, through the hidden layers, to the output layer. This process is known as <strong>forward propagation</strong>. Each connection between neurons has an associated <strong>weight</strong>. In forward propagation, the input data is multiplied by these weights, passed through an activation function in each neuron, and then transmitted to the next layer.</p>
+<h2>Loss Function and Predictions</h2>
+<p>Once the output is generated, the <strong>loss function</strong> calculates how far off the network's predictions (<code>y'</code>) are from the actual values (<code>y</code>), which is represented as the "Loss Score" in the diagram. Common loss functions include mean squared error or cross-entropy, depending on the task at hand (e.g., regression or classification).</p>
+<h2>Backpropagation and Optimization</h2>
+<p>The difference between the predicted and true values, calculated by the loss function, is used to update the model's weights through a process called <strong>backpropagation</strong>. The <strong>optimizer</strong> (shown in red in the diagram) adjusts the weights to minimize the loss. This process involves calculating the gradients (or changes) in the loss concerning each weight in the network.</p>
+<p>The goal of training is to repeatedly perform forward propagation and backpropagation, updating the weights to minimize the loss function until the predictions improve. This is an iterative process and continues until the loss function is minimized and the network produces accurate predictions.</p></body></html>

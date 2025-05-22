@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Neural Network: Perceptron</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 20px;
+            line-height: 1.8;
+            color: #002a38; /* Durham College dark teal */
+        }
+        h1, h2, h3 {
+            color: #00827f; /* Durham College green */
+        }
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+        }
+        pre {
+            padding: 10px;
+            border-left: 4px solid #00827f;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+            color: #002a38;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+        }
+        .example {
+            border-left: 4px solid #00827f;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head><body><h1>Basic Neural Network with No Hidden Layers (Perceptron)</h1>
+<p>In this module, we will implement a basic neural network using PyTorch, with no hidden layers. This type of neural network is often referred to as a <strong>single-layer perceptron</strong> (SLP). We will use <code>torch.nn.Linear</code> to define the input-output relationship and implement training with a loss function and optimizer.</p>
+<h2>1. What is a Perceptron?</h2>
+<p>A perceptron is the simplest type of artificial neural network. It is a linear classifier, meaning it makes decisions based on a linear combination of the input features. A perceptron consists of an input layer and an output layer, without any hidden layers. The structure of the perceptron model is:</p>
+<p><strong>Output = Input * Weights + Bias</strong></p>
+<p>Since there are no hidden layers and no non-linear activation functions, the model is a linear transformation of the input data.</p>
+<h2>2. History of the Perceptron</h2>
+<p>The perceptron was first introduced by Frank Rosenblatt in 1958 as an algorithm modeled after the human brain’s neural structure. The perceptron was one of the earliest models of neural networks, designed to recognize patterns and make decisions based on input data.</p>
+<p>It was considered groundbreaking at the time, as it could learn from data and adjust its weights accordingly, which allowed it to "learn" how to classify input data into categories. However, due to its linear nature, the perceptron has certain limitations, which we’ll explore below.</p>
+<h2>3. Defining the Perceptron Model</h2>
+<p><img src="image_20240923165152961.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>The diagram above represents a <strong>perceptron</strong> model, where the perceptron takes several input values x_1, x_2, x_3,...x_n and combines them using corresponding weights w_1, w_2, w_3,..,w_n. The perceptron is a simple model where the input data is combined linearly.</p>
+<p>The perceptron model can be mathematically described as:</p>
+<p><img alt="Perceptron Learning Algorithm: A Graphical Explanation Of Why It Works | by  Akshay L Chandra | Towards Data Science" src="https://miro.medium.com/v2/resize:fit:668/1*0zI1zKIOakgNuPMIg__UJg.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>Where:</p>
+<ul>
+<li><strong>x_1, x_2, x_3,...,x_n</strong>: Input features (data)</li>
+<li><strong>w_1, w_2, w_3,...,w_n</strong>: Weights assigned to each input feature</li>
+<li><strong>b</strong>: Bias term</li>
+<li><strong>y</strong>: Output, which is the predicted value</li>
+</ul>
+<p>The perceptron will classify data into two categories by applying a threshold to the output. If the weighted sum of the inputs plus the bias is greater than a certain threshold, the perceptron outputs one class; otherwise, it outputs the other class.</p>
+<p><img alt="Perceptron" src="https://www.saedsayad.com/images/Perceptron_1.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>This model, represented by the diagram, was famously analyzed by Marvin Minsky and Seymour Papert in their 1969 book <strong>"Perceptrons"</strong>, where they demonstrated the limitations of this simple neural network, particularly its inability to solve problems like the XOR problem.</p>
+<h3>Key Takeaways</h3>
+<ul>
+<li>The perceptron is a linear model, meaning it can only separate linearly separable data.</li>
+<li>The diagram demonstrates how inputs are combined linearly with weights to produce an output prediction.</li>
+<li>The work by Minsky and Papert in 1969 highlighted that perceptrons have limitations, especially when it comes to solving complex problems that are not linearly separable.</li>
+</ul>
+<h2>4. Limitations of the Perceptron</h2>
+<p>Despite its early success, the single-layer perceptron has significant limitations:</p>
+<ul>
+<li><strong>Linear Separability:</strong> A perceptron can only classify data that is linearly separable. This means that it can only solve problems where the classes can be divided by a straight line (or a hyperplane in higher dimensions). For example, it cannot solve the XOR problem, where classes are not linearly separable.</li>
+<li><strong>No Hidden Layers:</strong> Because it lacks hidden layers, the perceptron cannot capture complex patterns or relationships in data. Hidden layers add non-linearity to the model, allowing it to learn more intricate structures in the data.</li>
+<li><strong>No Non-Linear Activation:</strong> The perceptron applies a simple weighted sum of the inputs and does not use non-linear activation functions (such as ReLU or Sigmoid), limiting its ability to model complex data distributions.</li>
+</ul>
+<p>Because of these limitations, more advanced models like multi-layer perceptrons (MLPs), which add hidden layers and non-linear activation functions, have become more widely used in modern machine learning.</p>
+<h2>5. Model Structure in PyTorch</h2>
+<p>In PyTorch, we can implement a perceptron using <code>torch.nn.Linear</code> to define the input-output relationship. Here’s how the layer is defined:</p>
+<pre><code>input_size = 2
+output_size = 1
+
+# Define the model (single layer, no hidden layers)
+linear_layer = nn.Linear(input_size, output_size)</code></pre>
+<p>This is a basic linear transformation where the output is the weighted sum of the inputs plus a bias term. Because there are no hidden layers, it fits the definition of a perceptron.</p>
+<h2>6. Forward Pass</h2>
+<p>The input data is passed through the model to get the output predictions. Since this is a basic model with no hidden layers, the input is directly multiplied by the weights and added to the bias to produce the output:</p>
+<pre><code># Dummy input data (2 features)
+inputs = torch.tensor([[1.0, 2.0], [2.0, 3.0]])
+
+# Forward pass (predict outputs)
+outputs = linear_layer(inputs)
+print("Initial outputs:", outputs)</code></pre>
+<h2>7. Loss Function and Optimization</h2>
+<p>We define a loss function to measure how far the predicted values are from the actual target values. We'll use <code>nn.MSELoss()</code> for mean squared error and <code>optim.SGD</code> for Stochastic Gradient Descent optimization:</p>
+<pre><code># Define a loss function and optimizer
+loss_function = nn.MSELoss()
+optimizer = optim.SGD(linear_layer.parameters(), lr=0.01)</code></pre>
+<h2>8. Training Loop</h2>
+<p>To train the model, we run a loop for 100 iterations (epochs). In each iteration, the network performs the following steps:</p>
+<ul>
+<li>Zero out the gradients from the previous iteration</li>
+<li>Perform a forward pass to calculate the predicted outputs</li>
+<li>Calculate the loss (difference between predicted and actual values)</li>
+<li>Perform a backward pass to compute gradients</li>
+<li>Update the model weights using the optimizer</li>
+</ul>
+<pre><code># Training loop
+for epoch in range(100):
+    optimizer.zero_grad()     # Zero the gradients
+    outputs = linear_layer(inputs)  # Forward pass
+    loss = loss_function(outputs, targets)  # Compute the loss
+    loss.backward()           # Backward pass
+    optimizer.step()          # Update weights
+
+    if epoch % 10 == 0:
+        print(f'Epoch [{epoch+1}/100], Loss: {loss.item():.4f}')  # Print loss</code></pre>
+<h2>9. Evaluation</h2>
+<p>After training, we can test the model on new data. We switch the model to evaluation mode using <code>torch.no_grad()</code>, which disables gradient calculation to save memory:</p>
+<pre><code># Evaluation (test with new inputs)
+with torch.no_grad():
+    test_inputs = torch.tensor([[3.0, 4.0]])
+    test_outputs = linear_layer(test_inputs)
+    print("Test output:", test_outputs)</code></pre>
+<h2>Summary</h2>
+<p>This example demonstrated a basic neural network without hidden layers using PyTorch. The model was defined as a single linear layer using <code>nn.Linear</code>. This type of model, known as a perceptron, is a linear classifier that can only handle linearly separable data. Despite its historical significance, the perceptron has limitations in handling complex data, which led to the development of multi-layer perceptrons and other more powerful neural network architectures.</p></body></html>

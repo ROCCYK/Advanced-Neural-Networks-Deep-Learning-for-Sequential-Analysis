@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recurrent Neural Networks (RNNs) Basics</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        code, pre { background-color: #f4f4f4; padding: 2px 4px; border-radius: 4px; display: block; margin: 10px 0; }
+        .example, .formula { background-color: #f9f9f9; padding: 10px; border-left: 5px solid #3498db; margin: 10px 0; font-style: italic; }
+        .code { background-color: #f0f0f0; padding: 15px; border-radius: 5px; }
+        ul { margin: 10px 0; }
+        .math { font-family: 'Courier New', monospace; }
+    </style>
+</head><body><h1>Recurrent Neural Networks (RNNs) Basics</h1>
+<!-- Section 1 -->
+<section>
+<h2>Section 1: Overview of Feedforward Neural Networks vs. RNNs</h2>
+<p>Feedforward neural networks (FNNs) are the simplest type of artificial neural networks. They operate in a single direction, from input to output, without considering any previous input states. This makes FNNs ideal for tasks where the output is not dependent on the sequence or order of the inputs.</p>
+<p>In contrast, Recurrent Neural Networks (RNNs) are designed for sequence-based data. RNNs maintain a "memory" of past inputs using a hidden state, allowing them to capture temporal dependencies in the data. This makes RNNs suitable for tasks like language modeling, time series analysis, and speech recognition.</p>
+<div class="example"><strong>Example:</strong> An FNN may classify a single image, while an RNN could generate text based on a given sequence of words.</div>
+</section>
+<!-- Section 2 -->
+<section>
+<h2>Section 2: Structure and Components of a Basic RNN</h2>
+<p>A basic RNN is composed of three main layers:</p>
+<ul>
+<li><strong>Input Layer:</strong> Receives the input data at each time step (e.g., a word in a sentence or a data point in a time series).</li>
+<li><strong>Hidden Layer:</strong> The core of the RNN where the hidden state is updated based on the input and the previous hidden state.</li>
+<li><strong>Output Layer:</strong> Produces the output for each time step, which could be a prediction or a transformation of the input.</li>
+</ul>
+<div class="example"><strong>Example:</strong> In a text generation task, the input layer receives one word at a time, the hidden layer processes these inputs while maintaining context, and the output layer generates the next word.</div>
+</section>
+<!-- Section 3 -->
+<section>
+<h2>Section 3: Concept of "Recurrence" and How RNNs Maintain State</h2>
+<p>The concept of "recurrence" in RNNs refers to the network's ability to maintain information across time steps. The hidden state acts as the network's memory, storing information about past inputs that helps make predictions at each time step.</p>
+<p>In a basic RNN, the hidden state at each time step is updated using the current input and the previous hidden state. This recurrent process allows RNNs to learn from sequential data and maintain context, which is crucial for tasks like language modeling.</p>
+<div class="example"><strong>Example:</strong> In a language model, the hidden state carries information about the previous words in a sentence, helping the model generate grammatically and contextually correct text.</div>
+</section>
+<!-- Section 4 -->
+<section>
+<h2>Section 4: Mathematical Formulation of an RNN</h2>
+<p>The mathematical formulation of an RNN involves updating the hidden state at each time step based on the input and the previous hidden state. The hidden state update equation is as follows:</p>
+<div class="formula">
+<p class="math">h<sub>t</sub> = f(W<sub>hx</sub>x<sub>t</sub> + W<sub>hh</sub>h<sub>t-1</sub> + b)</p>
+</div>
+<p>- <strong>h<sub>t</sub></strong>: Hidden state at time step <em>t</em>.<br>- <strong>x<sub>t</sub></strong>: Input at time step <em>t</em>.<br>- <strong>W<sub>hx</sub></strong>, <strong>W<sub>hh</sub></strong>: Weight matrices for the input and hidden state.<br>- <strong>b</strong>: Bias term.<br>- <strong>f</strong>: Activation function (e.g., tanh or ReLU).</p>
+<div class="example"><strong>Example:</strong> The hidden state is updated by combining the input and the previous hidden state, passing them through a weighted sum and activation function. This allows the RNN to maintain information from previous time steps.</div>
+</section>
+<!-- Section 5 -->
+<section>
+<h2>Section 5: PyTorch Code for Basic RNN Implementation</h2>
+<p>Below is a basic implementation of an RNN using PyTorch. This code defines a simple RNN model with input, hidden, and output dimensions.</p>
+<div class="code">
+<pre><code>import torch
+import torch.nn as nn
+
+class BasicRNN(nn.Module):
+    def __init__(self, input_dim, hidden_dim, output_dim):
+        super(BasicRNN, self).__init__()
+        self.rnn = nn.RNN(input_dim, hidden_dim, batch_first=True)
+        self.fc = nn.Linear(hidden_dim, output_dim)
+    
+    def forward(self, x):
+        out, h_n = self.rnn(x)
+        out = self.fc(out[:, -1, :])
+        return out
+
+# Sample usage
+model = BasicRNN(input_dim=10, hidden_dim=20, output_dim=1)
+input_data = torch.randn(5, 3, 10)  # batch_size, seq_len, input_dim
+output = model(input_data)
+print(output)
+            </code></pre>
+</div>
+</section>
+<!-- Embedded Video Section -->
+<section>
+<h2>Additional Resource: Video on RNN Basics</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LHXXI4-IEns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+<p>This video provides an introduction to the basics of Recurrent Neural Networks (RNNs) and can help reinforce the concepts covered in this lesson.</p>
+</section></body></html>

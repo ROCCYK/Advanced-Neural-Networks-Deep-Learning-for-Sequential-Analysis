@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Weekly Content and Practice</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Added Styles -->
+
+	<!-- Bootstrap CDN CSS -->
+	<link rel="stylesheet" href="/shared/institutional-template/assets/thirdpartylib/bootstrap-4.4.1/css/bootstrap.min.css">
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="/shared/institutional-template/assets/thirdpartylib/fontawesome-free-5.12.0-web/css/all.css">
+	<!-- Google Fonts CSS -->
+	<link href="https://fonts.googleapis.com/css?family=Lato|Oswald&amp;display=swap" rel="stylesheet">
+	<!-- D2L Daylight Course Styles -->
+	<link rel="stylesheet" href="/shared/institutional-template/assets/css/main.min.css">
+	<!-- Durham College Styles -->
+	<link rel="stylesheet" href="/shared/institutional-template/css/dcss.css"> 
+
+</head><body class="content" role="document"><div class="container-fluid"><main>
+<div class="banner-img"><img alt="a pytorch workflow flowchat" src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01_a_pytorch_workflow.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></div>
+<!-- Start of Content Activities -->
+<h3>Introduction to Tensors in PyTorch</h3>
+<p><a href="https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html">https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html</a></p>
+<p>Tensors are at the heart of deep learning and are fundamental to PyTorch. Understanding what tensors are and their characteristics is crucial for anyone looking to dive into machine learning and neural network development. This content page provides an introduction to tensors, their definition, and their key characteristics.</p>
+<h4>What is a Tensor?</h4>
+<ul>
+<li>A <strong>tensor</strong> is a multi-dimensional array of numbers, with a defined shape and data type.</li>
+<li>Tensors can be thought of as a generalization of matrices to more than two dimensions. While a scalar is a 0-dimensional tensor, a vector is a 1-dimensional tensor, and a matrix is a 2-dimensional tensor, tensors can extend to any number of dimensions.</li>
+<li>Tensors are the primary data structure used in PyTorch to encode inputs, outputs, and model parameters.</li>
+</ul>
+<h4>Characteristics of Tensors</h4>
+<ol>
+<li>
+<p><strong>Multi-Dimensional Structure</strong>:</p>
+<ul>
+<li>Tensors can have multiple dimensions. For example, a tensor can be a scalar (0D), a vector (1D), a matrix (2D), or even higher-dimensional structures (3D, 4D, etc.).</li>
+<li>This multi-dimensional nature makes tensors flexible enough to represent a wide variety of data, such as images, time series, and text.</li>
+</ul>
+</li>
+<li>
+<p><strong>Homogeneous Data Type</strong>:</p>
+<ul>
+<li>All elements in a tensor must be of the same data type, such as integers, floating-point numbers, or booleans.</li>
+<li>This homogeneity ensures consistent and efficient numerical computations, making it easier to perform mathematical operations on tensors.</li>
+</ul>
+</li>
+<li>
+<p><strong>Shape and Size</strong>:</p>
+<ul>
+<li>Tensors have a specific shape defined by the number of elements along each dimension. For example, a tensor with shape <code>(3, 4)</code> has 3 rows and 4 columns.</li>
+<li>The shape of a tensor can be modified using operations like reshaping, which is useful for preparing data for different stages of a neural network.</li>
+</ul>
+</li>
+<li>
+<p><strong>Encodes Inputs, Outputs, and Parameters</strong>:</p>
+<ul>
+<li>Tensors are used to represent the input data fed into a model, the output data produced by the model, and the model's parameters (such as weights and biases).</li>
+<li>During the training process, tensors are updated to learn from data and minimize errors.</li>
+</ul>
+</li>
+<li>
+<p><strong>Creation from Python Lists or NumPy Arrays</strong>:</p>
+<ul>
+<li>Tensors can be easily created from existing Python lists or NumPy arrays using PyTorch functions like <code>torch.tensor()</code>.</li>
+<li>This allows for seamless integration of PyTorch into Python workflows and makes it easy to convert data into a format suitable for deep learning.</li>
+</ul>
+</li>
+<li>
+<p><strong>Manipulatable with Various Operations</strong>:</p>
+<ul>
+<li>PyTorch provides a rich set of operations for tensors, similar to those in NumPy, such as slicing, indexing, reshaping, and arithmetic operations.</li>
+<li>These operations allow for efficient data manipulation and transformation, making tensors incredibly versatile for deep learning tasks.</li>
+</ul>
+</li>
+</ol>
+<h4>Why Tensors are Important in PyTorch</h4>
+<ul>
+<li><strong>Foundation of Neural Networks</strong>: Tensors are the foundation of neural networks in PyTorch. They store data and perform operations that are fundamental to model training and inference.</li>
+<li><strong>GPU Acceleration</strong>: PyTorch tensors can be moved to a GPU, allowing for accelerated computations and faster training of large models.</li>
+<li><strong>Automatic Differentiation</strong>: PyTorch's autograd feature allows automatic computation of gradients, which is essential for optimizing neural networks.</li>
+</ul>
+<h4>Summary</h4>
+<p>Tensors are powerful multi-dimensional arrays that play a central role in PyTorch. Their ability to represent complex data structures and perform efficient computations makes them essential for building, training, and deploying neural networks. By mastering tensors, you gain a foundational tool for advancing in the field of machine learning and artificial intelligence.</p>
+<p></p>
+<hr><!-- Start of Durham College Footer -->
+<div class="dc_footer row">
+<div class="col-md-6 col-sm-12 footer_img_wrap"><img src="/shared/institutional-template/assets/img/dc-logo.svg" class="img-fluid footer_img" alt="Durham College Logo"></div>
+<div class="col-md-6 col-sm-12">
+<p class="dc_copyright">© Durham College. All rights reserved.</p>
+</div>
+</div>
+<!-- End of Durham College Footer --></main></div>
+<!-- jQuery Version 1.12.4 -->
+<p>
+<script src="/shared/institutional-template/assets/thirdpartylib/jquery/jquery.min.js"></script>
+</p>
+<!-- Bootstrap CDN JS -->
+<p>
+<script src="/shared/institutional-template/assets/thirdpartylib/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+</p>
+<!-- Font Awesome JS -->
+<p>
+<script src="/shared/institutional-template/assets/thirdpartylib/fontawesome-free-5.12.0-web/js/all.js"></script>
+</p>
+<!-- DC Custom JS Functions -->
+<p>
+<script src="/shared/institutional-template/js/custom.js" type="text/javascript"></script>
+</p></body></html>

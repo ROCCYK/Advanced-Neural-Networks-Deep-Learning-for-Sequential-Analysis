@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivatives and PyTorch</title>
+    
+    <!-- MathJax for rendering mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #006747;
+            margin: 20px;
+            text-align: left;
+        }
+        
+        h1, h2, h3 {
+            color: #004c3f;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin-bottom: 0.3em;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 1em;
+        }
+
+        code {
+            background-color: #e0f2f1;
+            padding: 0.5em;
+            display: block;
+            margin: 0.5em 0;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+
+        ul {
+            font-size: 1.1em;
+        }
+
+        .section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: left;
+            font-size: 1em;
+            color: #004c3f;
+        }
+    </style>
+</head><body><div class="container">
+<div class="section">
+<h1>Derivatives and PyTorch</h1>
+<h2>Learning Objectives</h2>
+<p>1. Understand the concept of derivatives in calculus.</p>
+<p>2. Learn how to calculate derivatives manually and using PyTorch.</p>
+<p>3. Apply automatic differentiation in PyTorch using the <code>autograd</code> package.</p>
+</div>
+<div class="section">
+<h2>Section 1: Introduction to Derivatives</h2>
+<h3>1.1 What is a Derivative?</h3>
+<p>If \( f(x) \) is a function, the derivative of \( f \) with respect to \( x \) is denoted as \( f'(x) \) or \( \frac{df}{dx} \).</p>
+<p>Example:</p>
+<p>\( f(x) = x^2, \quad f'(x) = 2x \)</p>
+<h3>1.2 Geometric Interpretation</h3>
+<p>The derivative represents the slope of the tangent line to the curve at any given point.</p>
+<p><img alt="Use the definition of the derivative at a point to find an eq for the  tangent line to y= x^3 at the point (1,1) . No points for any other methods  help?? | Socratic" src="https://useruploads.socratic.org/69VemDw4RJWsL6dSmB2S_Tangent.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<h3>1.3 Basic Rules of Derivatives</h3>
+<ul>
+<li><strong>Power Rule:</strong> \( \frac{d}{dx} x^n = nx^{n-1} \)</li>
+<li><strong>Sum Rule:</strong> \( \frac{d}{dx} [f(x) + g(x)] = f'(x) + g'(x) \)</li>
+<li><strong>Product Rule:</strong> \( \frac{d}{dx} [f(x) \cdot g(x)] = f'(x) \cdot g(x) + f(x) \cdot g'(x) \)</li>
+<li><strong>Chain Rule:</strong> \( \frac{d}{dx} f(g(x)) = f'(g(x)) \cdot g'(x) \)</li>
+</ul>
+</div>
+<div class="section">
+<h2>Section 2: Derivatives in PyTorch</h2>
+<h3>2.1 PyTorch <a href="https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html" target="_blank" rel="noopener"><code>autograd</code></a> Package</h3>
+<p>PyTorch has an automatic differentiation engine called <code>autograd</code>. It tracks all operations on tensors and computes gradients automatically during backpropagation.</p>
+<h3>2.2 Tensors with Gradient Tracking</h3>
+<p>To enable PyTorch to compute derivatives, we need to create tensors with the <code>requires_grad=True</code> attribute.</p>
+<code>
+                import torch<br>
+                <br>
+                # Create a tensor<br>
+                x = torch.tensor(2.0, requires_grad=True)<br>
+                <br>
+                # Define a function y = x^2<br>
+                y = x ** 2<br>
+                <br>
+                # Compute the derivative<br>
+                y.backward()<br>
+                <br>
+                # Print the gradient (dy/dx)<br>
+                print(x.grad)  # Output: tensor(4.0000)
+            </code>
+<h3>2.3 Example: Computing the Derivative of a Function</h3>
+<code>
+                # Create a tensor<br>
+                x = torch.tensor(3.0, requires_grad=True)<br>
+                <br>
+                # Define a function f(x) = x^3 + 2x^2 + 3<br>
+                y = x**3 + 2*x**2 + 3<br>
+                <br>
+                # Compute the derivative<br>
+                y.backward()<br>
+                <br>
+                # Print the gradient (dy/dx)<br>
+                print(x.grad)  # Output: tensor(47.0000)
+            </code>
+<h3>2.4 Multiple Derivatives: Chain Rule Example</h3>
+<code>
+                # Create tensor<br>
+                x = torch.tensor(2.0, requires_grad=True)<br>
+                <br>
+                # Define functions f and g<br>
+                g = 3 * x + 1<br>
+                f = g ** 2<br>
+                <br>
+                # Compute the derivative<br>
+                f.backward()<br>
+                <br>
+                # Print the gradient (df/dx)<br>
+                print(x.grad)  # Output: tensor(24.0000)
+            </code></div>
+<div class="section">
+<h2>Section 3: Applications of Derivatives in PyTorch</h2>
+<h3>3.1 Gradient Descent Optimization</h3>
+<p>Derivatives are essential in optimization algorithms like gradient descent, used to minimize a loss function in machine learning models.</p>
+<code>
+                # Suppose w is a weight parameter in a simple model<br>
+                w = torch.tensor(1.0, requires_grad=True)<br>
+                <br>
+                # Define a loss function: L(w) = (w - 3)^2<br>
+                L = (w - 3) ** 2<br>
+                <br>
+                # Compute the derivative dL/dw<br>
+                L.backward()<br>
+                <br>
+                # Update the weight w using gradient descent<br>
+                learning_rate = 0.1<br>
+                with torch.no_grad():<br>
+                    w -= learning_rate * w.grad<br>
+                <br>
+                # Print updated weight<br>
+                print(w)  # w moves closer to 3
+            </code></div>
+<div class="section">
+<h2>Section 4 (Optional): Exercises</h2>
+<h3>4.1 Basic Derivatives</h3>
+<p>1. Compute the derivative of \( f(x) = x^4 + 3x^3 + x \) at \( x = 5 \) using PyTorch.</p>
+<h3>4.2 Chain Rule Application</h3>
+<p>2. Given \( f(x) = (2x + 1)^3 \), compute the derivative at \( x = 2 \) using PyTorch.</p>
+<h3>4.3 Higher-Order Derivatives</h3>
+<p>3. Compute the second derivative of \( f(x) = x^5 - 2x^3 \) at \( x = 4 \).</p>
+</div>
+<footer>Created for AI &amp; Data Analytics at Durham College</footer></div></body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSC 41000: Loss Functions and Optimization in PyTorch</title>
+
+    <!-- MathJax for rendering mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: black;
+            margin: 20px;
+            text-align: left;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: black;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin-bottom: 0.3em;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+
+        code {
+            background-color: #e0e0e0;
+            padding: 0.5em;
+            display: block;
+            margin: 0.5em 0;
+            font-size: 1.1em;
+            border-radius: 5px;
+        }
+
+        ul {
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: left;
+            font-size: 1em;
+            color: black;
+        }
+    </style>
+</head><body><div class="container">
+<div class="section">
+<h1>Loss Functions and Optimization in PyTorch</h1>
+<p>This module explains loss functions and optimization in PyTorch. It covers what a loss function is, why it's important, and how to use optimization techniques like Stochastic Gradient Descent (SGD) in PyTorch.</p>
+</div>
+<div class="section">
+<h2>1. What is a Loss Function?</h2>
+<p>A <strong>loss function</strong> measures how far off a model’s predictions are from the actual target values. In other words, it tells us how "bad" or "good" the model's predictions are. The goal of training a neural network is to minimize this loss, making the model’s predictions as close as possible to the true values.</p>
+<h3>Types of Loss Functions:</h3>
+<ul>
+<li><strong>Mean Squared Error (MSE)</strong>: Used for regression problems. It calculates the average of the squared differences between the predicted and actual values. This ensures that large errors are penalized more than smaller ones.
+<p>\[ \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y_i})^2 \]</p>
+</li>
+<li><strong>Cross Entropy Loss</strong>: Used for classification problems. It measures the difference between two probability distributions (predicted and actual).
+<p>\[ \text{Cross Entropy Loss} = -\sum_{i=1}^{n} y_i \log(\hat{y_i}) \]</p>
+</li>
+</ul>
+</div>
+<div class="section">
+<h2>2. How Loss Functions Work in Neural Networks</h2>
+<p>In a neural network, the loss function plays a critical role in guiding the training process. During training, the network makes predictions and the loss function tells us how far the predictions are from the actual values. The lower the loss, the better the model.</p>
+<h3>Steps Involving Loss Function in Training:</h3>
+<ul>
+<li><strong>Step 1:</strong> The input data is passed through the network, and predictions are made (forward pass).</li>
+<li><strong>Step 2:</strong> The loss function calculates the error between the predictions and the actual values.</li>
+<li><strong>Step 3:</strong> The optimizer (e.g., SGD) adjusts the network’s weights based on the gradients (calculated using <code>autograd</code>) to reduce the loss.</li>
+</ul>
+</div>
+<div class="section">
+<h2>3. What is Optimization?</h2>
+<p>Optimization is the process of adjusting the model’s parameters (weights and biases) to minimize the loss function. In PyTorch, this is done using optimizers like Stochastic Gradient Descent (SGD), which updates the weights to reduce the loss with each iteration.</p>
+<h3>Types of Optimizers:</h3>
+<ul>
+<li><strong>Stochastic Gradient Descent (SGD)</strong>: Updates the weights based on the gradient of the loss function. It uses a small batch (or single data point) at each step, making it faster but sometimes noisier.</li>
+<li><strong>Adam Optimizer</strong>: Combines the advantages of both SGD and RMSProp. It maintains a learning rate for each parameter and adapts the learning rate over time, making it more efficient for large datasets.</li>
+</ul>
+</div>
+<div class="section">
+<h2>4. Using Loss Functions and Optimization in PyTorch</h2>
+<p>Let’s see how to use a loss function and optimizer to train a simple neural network in PyTorch. We will use Mean Squared Error (MSE) as the loss function and Stochastic Gradient Descent (SGD) as the optimizer.</p>
+<h3>Step-by-Step Example:</h3>
+<code>
+                import torch<br>
+                import torch.nn as nn<br>
+                import torch.optim as optim<br><br>
+
+                # Define layers without __init__ or self<br>
+                input_layer = nn.Linear(2, 3)  # Input layer to hidden layer<br>
+                output_layer = nn.Linear(3, 1)  # Hidden layer to output layer<br><br>
+
+                # Define the forward pass function<br>
+                def forward_pass(x):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;x = torch.relu(input_layer(x))<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return output_layer(x)<br><br>
+
+                # Example data (inputs and targets)<br>
+                inputs = torch.tensor([[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]])<br>
+                targets = torch.tensor([[1.0], [2.0], [3.0]])<br><br>
+
+                # Loss function (Mean Squared Error)<br>
+                criterion = nn.MSELoss()<br><br>
+
+                # Optimizer (Stochastic Gradient Descent)<br>
+                optimizer = optim.SGD([input_layer.weight, output_layer.weight], lr=0.01)<br><br>
+
+                # Training loop<br>
+                for epoch in range(100):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;optimizer.zero_grad()  # Reset gradients<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;predictions = forward_pass(inputs)  # Forward pass<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;loss = criterion(predictions, targets)  # Compute loss<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;loss.backward()  # Backward pass<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;optimizer.step()  # Update weights<br><br>
+
+                print("Final predictions after training:", forward_pass(inputs))
+            </code>
+<h3>Explanation of the Code:</h3>
+<ul>
+<li><strong>Loss Function:</strong> We use Mean Squared Error (MSE) to calculate how far the model’s predictions are from the true target values.</li>
+<li><strong>Optimizer:</strong> The optimizer (SGD in this case) updates the model’s weights to reduce the loss. It does this by calculating the gradient of the loss function with respect to the weights and taking a step in the opposite direction of the gradient.</li>
+<li><strong>Training Loop:</strong> The loop runs for 100 iterations (epochs). In each iteration, the model makes predictions, calculates the loss, computes the gradients, and updates the weights using the optimizer.</li>
+</ul>
+</div>
+<div class="section">
+<h2>5. Things to Watch Out for When Using Loss Functions and Optimizers</h2>
+<h3>5.1 Loss Function Choice</h3>
+<p>Choosing the correct loss function depends on the type of problem you're solving. For example, use MSE for regression tasks and Cross Entropy Loss for classification tasks. The wrong loss function can lead to poor model performance.</p>
+<h3>5.2 Learning Rate</h3>
+<p>The learning rate controls how big a step the optimizer takes when updating the weights. A learning rate that’s too large can cause the model to overshoot the minimum, while one that’s too small can result in very slow training.</p>
+<h3>5.3 Overfitting</h3>
+<p>If the model fits the training data too well but performs poorly on new data, it’s overfitting. Regularization techniques or reducing model complexity can help combat overfitting.</p>
+</div>
+<footer>Created for COSC 41000</footer></div></body></html>

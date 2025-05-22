@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: PyTorch Module Overview</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #006747;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #004c3f;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        h2 {
+            color: #004c3f;
+            font-size: 2em;
+            margin-bottom: 0.8em;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1.2em;
+        }
+
+        ul {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        a {
+            color: #004c3f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 1em;
+            color: #004c3f;
+        }
+    </style>
+</head><body><div class="container">
+<h1>Week 4: PyTorch Module Overview</h1>
+<div class="section">
+<h2>Overview of Week 4</h2>
+<p>In previous modules, we focused on learning the basics of <strong>tensors </strong>and building simple neural networks in PyTorch. These gave us a solid foundation for working with data in deep learning models. However, what we haven't yet explored is how models actually <strong>learn and adapt</strong> to improve their predictions over time. This is where the four modules for this week come into play:&nbsp;<strong>derivatives</strong>, <strong>autograd</strong>, <strong>gradient descent</strong>, and <strong>loss functions</strong>.</p>
+<p>In this week's modules, we will dive deeper into the mechanics behind model learning. When training a neural network, <em>the goal is to minimize the error between the model's predictions and the actual values</em>. This is done by calculating how changes in the network’s parameters (such as weights and biases) impact the loss function. This is where <em>derivatives come in: they tell us how much the loss will change when we tweak the model parameters.</em></p>
+<p>PyTorch’s <strong>autograd</strong> system automates the calculation of these derivatives during backpropagation, which is a key part of model learning. The <strong>gradient descent</strong> algorithm uses these derivatives to update the weights in a direction that reduces the error. Finally, the <strong>loss function</strong> measures how well or poorly the model is performing, guiding these updates. Together, these concepts enable the neural network to continuously improve and make better predictions.</p>
+</div>
+<div class="section">
+<h2>1. Derivatives and PyTorch</h2>
+<p>This section covers the concept of derivatives and how to compute them using PyTorch's <span style="font-size: 19px;"><code>autograd</code></span> functionality. Derivatives are essential in deep learning because they help the model understand how to change its parameters to minimize error.</p>
+<p>In the context of deep learning, the model’s parameters (weights and biases) affect the loss function, and <em>the derivative of the loss function with respect to each parameter tells us the direction in which the parameters need to change to improve the model’s performance</em>. This is critical for training neural networks efficiently.</p>
+<a href="/d2l/common/dialogs/quickLink/quickLink.d2l?ou=563665&amp;type=content&amp;rcode=Durham-1657824" target="_blank" rel="noopener">Week 4 Derivatives and PyTorch</a></div>
+<div class="section">
+<h2>2. Autograd and Neural Networks in PyTorch</h2>
+<p>In this section, we focus on <strong>autograd</strong>, which is PyTorch's automatic differentiation engine. Without autograd, calculating the derivatives manually for each layer and each weight would be tedious and error-prone. Autograd tracks operations on tensors and automatically computes the derivatives (or gradients) during backpropagation, making it crucial for training neural networks.</p>
+<p>Backpropagation uses autograd to propagate the error backwards through the network and calculate how each weight contributes to the total error. These gradients are then used by optimization algorithms like gradient descent to update the parameters in a way that reduces the overall loss.</p>
+<a href="/d2l/common/dialogs/quickLink/quickLink.d2l?ou=563665&amp;type=content&amp;rcode=Durham-1657829" target="_blank" rel="noopener">Week 4 Autograd and Neural Networks in PyTorch</a></div>
+<div class="section">
+<h2>3. Gradient Descent in PyTorch</h2>
+<p><strong>Gradient Descent</strong> is the optimization algorithm that neural networks use to adjust their weights and biases to minimize the loss. The gradients calculated by autograd indicate the direction in which the weights need to change, and gradient descent ensures that we take steps in that direction.</p>
+<p>The size of these steps is controlled by the <strong>learning rate</strong>. If the steps are too big, the model might not converge to the optimal solution. If they are too small, the model might take too long to learn. This section will explain how gradient descent works in PyTorch, and how it interacts with autograd to update model parameters.</p>
+<a href="/d2l/common/dialogs/quickLink/quickLink.d2l?ou=563665&amp;type=content&amp;rcode=Durham-1657825" target="_blank" rel="noopener">Week 4 Gradient Descent in PyTorch</a></div>
+<div class="section">
+<h2>4. Loss Functions and Optimization in PyTorch</h2>
+<p><strong>Loss functions</strong> are used to quantify how well the model’s predictions match the actual target values. The goal of training is to minimize the loss function, which reflects the overall error in the model’s predictions. Common loss functions include <strong>Mean Squared Error (MSE)</strong> for regression problems and <strong>Cross-Entropy Loss</strong> for classification tasks.</p>
+<p>Once the gradients are computed, the <strong>optimizer</strong> (such as Stochastic Gradient Descent, or SGD) uses them to update the model’s parameters in a way that reduces the loss. This section explains how loss functions guide the training process and how optimizers make use of gradients to improve the model over time.</p>
+<a href="/d2l/common/dialogs/quickLink/quickLink.d2l?ou=563665&amp;type=content&amp;rcode=Durham-1657826" target="_blank" rel="noopener">Week 4 Loss Functions and Optimization in PyTorch</a></div>
+<footer>Created for COSC 41000 - Week 4: PyTorch Topics</footer></div></body></html>

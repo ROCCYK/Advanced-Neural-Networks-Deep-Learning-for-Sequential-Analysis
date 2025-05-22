@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Gated Recurrent Unit (GRU) Networks and Comparison with LSTM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        .section {
+            background-color: #eaf7ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #007acc;
+        }
+        .formula {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            border-left: 5px solid #555;
+        }
+        a {
+            color: #007acc;
+        }
+    </style>
+</head><body><h1 style="text-align: right;">Understanding Gated Recurrent Unit (GRU) Networks and Comparison with LSTM</h1>
+<section>
+<h2>Objective</h2>
+<p>This module aims to introduce Gated Recurrent Unit (GRU) networks and explore how they differ from Long Short-Term Memory (LSTM) networks in terms of architecture, performance, and use cases. By the end of this module, learners will understand the GRU structure, its advantages, and when to choose GRUs over LSTMs.</p>
+<p>Read through this wonderful <a href="https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21" target="_blank" rel="noopener">tutorial</a> and watch the video below to know more.</p>
+<div style="display: flex; justify-content: center; align-items: center; margin: 20px 0;"><iframe width="800" height="450" src="https://www.youtube.com/embed/8HyCNIVRbSU?si=o0jXqgsew__qdAHD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; 
+        gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen">
+    </iframe></div>
+<h2>1. Overview of GRU Architecture</h2>
+<p>Gated Recurrent Units (GRUs) are a type of recurrent neural network (RNN) introduced as a simpler alternative to LSTMs. Like LSTMs, GRUs are designed to handle sequential data and address the vanishing gradient problem found in traditional RNNs. GRUs achieve this by using two gates: the update gate and the reset gate.</p>
+<h3>Update Gate</h3>
+<p>The update gate controls how much of the previous information needs to be passed along to the next time step. It serves a similar purpose to the forget gate and input gate combined in LSTMs, determining what information to keep from the previous cell state and what to discard.</p>
+<div class="formula">z<sub>t</sub> = σ(W<sub>z</sub>[h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>z</sub>)</div>
+<p>Here, <code>σ</code> represents the sigmoid function, <code>W<sub>z</sub></code> is the weight matrix for the update gate, and <code>b<sub>z</sub></code> is the bias term.</p>
+<h3>Reset Gate</h3>
+<p>The reset gate determines how much of the previous information should be "reset" or forgotten. This allows the GRU to decide when to reset the memory, which is useful for modeling shorter dependencies in sequential data.</p>
+<div class="formula">r<sub>t</sub> = σ(W<sub>r</sub>[h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>r</sub>)</div>
+<p>Again, <code>σ</code> is the sigmoid function, <code>W<sub>r</sub></code> is the weight matrix for the reset gate, and <code>b<sub>r</sub></code> is the bias term.</p>
+<h3>Current Memory Content</h3>
+<p>The current memory content (also called the candidate activation) is calculated with the reset gate’s output, which selectively ignores parts of the previous hidden state. The formula is:</p>
+<div class="formula">h<sub>t</sub>' = tanh(W<sub>h</sub>[r<sub>t</sub> * h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>h</sub>)</div>
+<p>Here, <code>tanh</code> is the hyperbolic tangent function, which scales the values between -1 and 1. This expression controls the generation of new candidate activations based on the previous hidden state.</p>
+<h3>Final Memory Update</h3>
+<p>The final hidden state <code>h<sub>t</sub></code> is computed as a linear interpolation between the previous hidden state and the candidate hidden state. This interpolation is controlled by the update gate <code>z<sub>t</sub></code>:</p>
+<div class="formula">h<sub>t</sub> = (1 - z<sub>t</sub>) * h<sub>t-1</sub> + z<sub>t</sub> * h<sub>t</sub>'</div>
+<p>This mechanism enables the GRU to decide how much of the previous hidden state to keep and how much of the new candidate hidden state to use, allowing for efficient handling of dependencies over varying time steps.</p>
+</section>
+<section>
+<h2>2. Differences Between LSTM and GRU</h2>
+<p>While both LSTMs and GRUs aim to handle long-term dependencies in sequential data, there are several key differences between them:</p>
+<ul>
+<li><strong>Architecture Complexity:</strong> LSTMs have three gates (input, forget, and output) and a cell state, whereas GRUs have only two gates (update and reset) and no separate cell state. This makes GRUs simpler and often faster to train.</li>
+<li><strong>Memory Efficiency:</strong> GRUs are generally more memory-efficient as they have fewer parameters, making them suitable for tasks where memory resources are limited.</li>
+<li><strong>Training Time:</strong> Due to their simpler architecture, GRUs tend to train faster than LSTMs, especially on smaller datasets or when computational resources are limited.</li>
+<li><strong>Performance:</strong> LSTMs are often more accurate for tasks that require long-term dependencies, while GRUs can be more effective for tasks with shorter dependencies or where computational efficiency is critical.</li>
+</ul>
+<p>Stanford NLP research notes that, in many practical applications, GRUs perform comparably to LSTMs while being more computationally efficient.</p>
+</section>
+<section>
+<h2>3. When to Choose GRU Over LSTM</h2>
+<p>The choice between GRU and LSTM depends on the nature of the task and the computational resources available:</p>
+<ul>
+<li><strong>Use GRU:</strong> If you have limited computational resources, a smaller dataset, or the task does not require capturing very long dependencies.</li>
+<li><strong>Use LSTM:</strong> For tasks that require capturing complex, long-term dependencies, such as natural language processing with lengthy context or certain time-series predictions.</li>
+</ul>
+<p>In summary, GRUs are often preferred for lightweight applications where speed and efficiency are prioritized, while LSTMs may be better suited for tasks requiring nuanced long-term dependency modeling.</p>
+</section>
+<section>
+<h2>4. Implementing GRUs in PyTorch</h2>
+<p>PyTorch provides a straightforward implementation for GRUs using <code>torch.nn.GRU</code>. Below is a basic example:</p>
+<div class="formula">
+<pre>import torch
+import torch.nn as nn
+
+class SimpleGRU(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(SimpleGRU, self).__init__()
+        self.gru = nn.GRU(input_size, hidden_size)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        out, _ = self.gru(x)
+        out = self.fc(out[-1])
+        return out
+
+# Example usage
+model = SimpleGRU(input_size=10, hidden_size=20, output_size=1)
+x = torch.randn(5, 1, 10)  # (sequence_length, batch_size, input_size)
+output = model(x)
+print(output)
+            </pre>
+</div>
+<p>This implementation uses PyTorch’s built-in GRU layer, making it easy to apply GRUs to various sequential data tasks.</p>
+</section>
+<section>
+<h2>5. Worked-Out Example of GRU vs. LSTM</h2>
+<p>To see how GRUs and LSTMs differ in practice, let's go through a worked-out example for each architecture using the same dataset and hyperparameters.</p>
+<h3>Example Scenario</h3>
+<p>Suppose we are predicting stock prices based on a sequence of historical price data. We’ll create a simple dataset and compare the performance of GRU and LSTM models in terms of training time and memory usage.</p>
+<h3>GRU Implementation</h3>
+<div class="formula">
+<pre>class StockPredictionGRU(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(StockPredictionGRU, self).__init__()
+        self.gru = nn.GRU(input_size, hidden_size)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        out, _ = self.gru(x)
+        out = self.fc(out[-1])
+        return out
+            </pre>
+</div>
+<p>Training this model on stock price data, we might observe faster convergence and lower memory usage compared to an LSTM.</p>
+<h3>LSTM Implementation</h3>
+<div class="formula">
+<pre>class StockPredictionLSTM(nn.Module):
+    def __init__(self, input_size, hidden_size, output_size):
+        super(StockPredictionLSTM, self).__init__()
+        self.lstm = nn.LSTM(input_size, hidden_size)
+        self.fc = nn.Linear(hidden_size, output_size)
+        
+    def forward(self, x):
+        out, _ = self.lstm(x)
+        out = self.fc(out[-1])
+        return out
+            </pre>
+</div>
+<p>When training the LSTM model on the same data, it may take longer to train but can yield better accuracy on tasks requiring long-term dependencies.</p>
+</section>
+<section>
+<h2>6. Worked-Out Numerical Example of GRU Gates</h2>
+<p>To gain a deeper understanding of the GRU architecture, let’s go through a worked-out numerical example. This example will illustrate the calculations involved in the update and reset gates, as well as the final hidden state update.</p>
+<h3>Example Scenario</h3>
+<p>Assume we have the following values for a GRU cell at time step <code>t</code>:</p>
+<ul>
+<li><strong>Previous Hidden State</strong> (<code>h<sub>t-1</sub></code>): [0.5, -0.3]</li>
+<li><strong>Current Input</strong> (<code>x<sub>t</sub></code>): [0.7, 0.2]</li>
+<li><strong>Weights for Update Gate</strong> (<code>W<sub>z</sub></code>): [[0.1, 0.2], [0.3, 0.4]]</li>
+<li><strong>Weights for Reset Gate</strong> (<code>W<sub>r</sub></code>): [[0.2, 0.1], [0.4, 0.3]]</li>
+<li><strong>Weights for Candidate Activation</strong> (<code>W<sub>h</sub></code>): [[0.5, 0.6], [0.7, 0.8]]</li>
+<li><strong>Bias for Update Gate</strong> (<code>b<sub>z</sub></code>): [0.1, -0.1]</li>
+<li><strong>Bias for Reset Gate</strong> (<code>b<sub>r</sub></code>): [0.05, 0.05]</li>
+<li><strong>Bias for Candidate Activation</strong> (<code>b<sub>h</sub></code>): [0.0, 0.0]</li>
+</ul>
+<h3>Step 1: Calculate the Update Gate (<code>z<sub>t</sub></code>)</h3>
+<p>The update gate determines how much of the previous hidden state should carry forward. The calculation is as follows:</p>
+<div class="formula">z<sub>t</sub> = σ(W<sub>z</sub>[h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>z</sub>)</div>
+<p>Substitute the values:</p>
+<div class="formula">
+<pre>z<sub>t</sub> = σ([[0.1, 0.2], [0.3, 0.4]] * [0.5, -0.3] + [0.7, 0.2] + [0.1, -0.1])
+       = σ([0.07 + 0.14, 0.15 + 0.08])
+       = σ([0.31, 0.03])
+       ≈ [0.576, 0.507] (after applying the sigmoid function)
+        </pre>
+</div>
+<h3>Step 2: Calculate the Reset Gate (<code>r<sub>t</sub></code>)</h3>
+<p>The reset gate determines how much of the previous hidden state to forget. The calculation is as follows:</p>
+<div class="formula">r<sub>t</sub> = σ(W<sub>r</sub>[h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>r</sub>)</div>
+<p>Substitute the values:</p>
+<div class="formula">
+<pre>r<sub>t</sub> = σ([[0.2, 0.1], [0.4, 0.3]] * [0.5, -0.3] + [0.7, 0.2] + [0.05, 0.05])
+       = σ([0.1 + 0.08, 0.21 + 0.06])
+       = σ([0.39, 0.31])
+       ≈ [0.596, 0.576] (after applying the sigmoid function)
+        </pre>
+</div>
+<h3>Step 3: Calculate the Candidate Activation (<code>h<sub>t</sub>'</code>)</h3>
+<p>The candidate activation is the new hidden content, computed using the reset gate to determine how much of the previous hidden state to use.</p>
+<div class="formula">h<sub>t</sub>' = tanh(W<sub>h</sub>[r<sub>t</sub> * h<sub>t-1</sub>, x<sub>t</sub>] + b<sub>h</sub>)</div>
+<p>Substitute the values:</p>
+<div class="formula">
+<pre>h<sub>t</sub>' = tanh([[0.5, 0.6], [0.7, 0.8]] * ([0.596 * 0.5, 0.576 * -0.3] + [0.7, 0.2]) + [0.0, 0.0])
+       = tanh([0.3 + 0.6, 0.41 + 0.16])
+       = tanh([0.9, 0.57])
+       ≈ [0.716, 0.516] (after applying the tanh function)
+        </pre>
+</div>
+<h3>Step 4: Final Hidden State Calculation (<code>h<sub>t</sub></code>)</h3>
+<p>The final hidden state is a combination of the previous hidden state and the candidate activation, controlled by the update gate.</p>
+<div class="formula">h<sub>t</sub> = (1 - z<sub>t</sub>) * h<sub>t-1</sub> + z<sub>t</sub> * h<sub>t</sub>'</div>
+<p>Substitute the values:</p>
+<div class="formula">
+<pre>h<sub>t</sub> = (1 - [0.576, 0.507]) * [0.5, -0.3] + [0.576, 0.507] * [0.716, 0.516]
+       = [0.212, -0.148] + [0.413, 0.261]
+       ≈ [0.625, 0.113]
+        </pre>
+</div>
+<p>Thus, the final hidden state <code>h<sub>t</sub></code> is approximately <code>[0.625, 0.113]</code>.</p>
+</section>
+<section>
+<h2>Reference:</h2>
+<p>Read this pdf document <a href="../../cs224n-2019-notes05-LM_RNN.pdf" target="_self">Stanford NLP on Language Models</a> to understand more.</p>
+<h2>Outcome</h2>
+<p>After completing this module, learners will be able to:</p>
+<ul>
+<li>Understand the structure and components of a GRU network, including the update and reset gates.</li>
+<li>Identify the main differences between LSTM and GRU in terms of architecture, performance, and use cases.</li>
+<li>Implement GRUs in PyTorch and apply them to real-world sequential tasks.</li>
+<li>Make informed decisions on when to choose GRU over LSTM based on the specific requirements of a task.</li>
+</ul>
+</section></body></html>

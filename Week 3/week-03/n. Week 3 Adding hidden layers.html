@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perceptron Classification and Hidden Layers</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 20px;
+            line-height: 1.8;
+            color: #002a38;
+        }
+        h1, h2, h3 {
+            color: #00827f;
+        }
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+        }
+        pre {
+            padding: 10px;
+            border-left: 4px solid #00827f;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+            color: #002a38;
+        }
+    </style>
+</head><body><h1>Perceptron Classification and the Need for Hidden Layers</h1>
+<h2>Limitations of the Perceptron Model</h2>
+<p>The classical perceptron model is limited to classifying data that is <strong>linearly separable</strong>. This means that the model can only draw straight lines (or hyperplanes in higher dimensions) to separate different classes in the input space.</p>
+<p>For example, consider the <strong>XOR function</strong>:</p>
+<ul>
+<li>\( (0, 0) \rightarrow 0 \)</li>
+<li>\( (0, 1) \rightarrow 1 \)</li>
+<li>\( (1, 0) \rightarrow 1 \)</li>
+<li>\( (1, 1) \rightarrow 0 \)</li>
+</ul>
+<p>A single perceptron cannot draw a straight line to separate these inputs because XOR is a non-linearly separable function. This inability to solve non-linear classification tasks is one of the major drawbacks of a single-layer perceptron.</p>
+<p></p>
+<h3>How Hidden Layers Help</h3>
+<p>By adding <strong>hidden layers</strong> between the input and output, we can introduce non-linearity into the model, allowing it to solve more complex problems like XOR. Hidden layers use activation functions (such as <em>ReLU</em>, <em>sigmoid</em>, or <em>tanh</em>) to transform the input data in a way that can model more complex relationships.</p>
+<p>Each hidden layer in a neural network learns progressively more abstract features from the input, making it possible to learn non-linear decision boundaries.</p>
+<h3>Simple Neural Network with Hidden Layers (Step-by-Step)</h3>
+<p>Below is an example of how to modify the basic perceptron model by adding hidden layers, broken down into simple steps.</p>
+<h4>Step 1: Define Layers</h4>
+<pre><code># Import necessary libraries
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# Input layer: takes in 2 features
+input_size = 2
+
+# Hidden layer: 4 neurons
+hidden_size = 4
+
+# Output layer: 1 output (binary classification)
+output_size = 1
+
+# Define the weight matrices for each layer
+weights_input_to_hidden = torch.randn(input_size, hidden_size)
+weights_hidden_to_output = torch.randn(hidden_size, output_size)
+
+# Bias terms
+bias_hidden = torch.randn(hidden_size)
+bias_output = torch.randn(output_size)
+</code></pre>
+<h4>Step 2: Forward Pass through the Hidden Layer</h4>
+<p>Next, we pass the inputs through the hidden layer and apply a non-linear activation function (ReLU).</p>
+<pre><code># Example input data (two features)
+inputs = torch.tensor([[1.0, 2.0], [2.0, 3.0]])
+
+# Weighted sum for hidden layer
+hidden_layer_input = torch.matmul(inputs, weights_input_to_hidden) + bias_hidden
+
+# Apply ReLU activation function to introduce non-linearity
+hidden_layer_output = torch.relu(hidden_layer_input)
+
+print("Hidden layer output:", hidden_layer_output)
+</code></pre>
+<h4>Step 3: Forward Pass through the Output Layer</h4>
+<p>After processing the input in the hidden layer, we pass the data through the output layer to make predictions.</p>
+<pre><code># Weighted sum for output layer
+output_layer_input = torch.matmul(hidden_layer_output, weights_hidden_to_output) + bias_output
+
+# No activation is needed at the output layer for now (for simplicity)
+output = output_layer_input
+
+print("Final output:", output)
+</code></pre>
+<h4>Step 4: Define the Loss Function and Optimizer</h4>
+<p>We need a loss function to measure how far the predicted output is from the actual target. We also need an optimizer to adjust the weights during training.</p>
+<pre><code># Define loss function (mean squared error for binary classification)
+loss_function = nn.MSELoss()
+
+# Define optimizer (stochastic gradient descent)
+learning_rate = 0.01
+optimizer = optim.SGD([weights_input_to_hidden, weights_hidden_to_output, bias_hidden, bias_output], lr=learning_rate)
+
+# Example target data
+targets = torch.tensor([[1.0], [0.0]])
+</code></pre>
+<h4>Step 5: Training the Network</h4>
+<p>In this step, we train the neural network using backpropagation and stochastic gradient descent.</p>
+<pre><code># Training loop
+epochs = 100
+for epoch in range(epochs):
+    # Forward pass (same as before)
+    hidden_layer_input = torch.matmul(inputs, weights_input_to_hidden) + bias_hidden
+    hidden_layer_output = torch.relu(hidden_layer_input)
+    output_layer_input = torch.matmul(hidden_layer_output, weights_hidden_to_output) + bias_output
+    output = output_layer_input
+
+    # Compute the loss
+    loss = loss_function(output, targets)
+
+    # Backward pass and weight updates
+    optimizer.zero_grad()  # Zero gradients
+    loss.backward()        # Backpropagate the error
+    optimizer.step()       # Update weights
+    
+    if epoch % 10 == 0:
+        print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
+</code></pre>
+<h2>Conclusion</h2>
+<p>This simplified neural network with a hidden layer introduces non-linearity, enabling it to solve more complex tasks than a basic perceptron. By dividing the process into smaller steps, it’s easier to understand the flow of data through the network and how each layer contributes to the final prediction.</p></body></html>

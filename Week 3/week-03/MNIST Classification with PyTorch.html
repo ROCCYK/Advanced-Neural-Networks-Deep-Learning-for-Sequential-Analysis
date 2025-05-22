@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 1: Building a Simple Neural Network with PyTorch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 20px;
+            line-height: 1.8;
+            color: #002a38;
+        }
+        h1, h2, h3 {
+            color: #00827f;
+        }
+    </style>
+</head><body><h1>Week 3 Lab: Building a Simple Neural Network with PyTorch</h1>
+<h2>Problem Description: Classifying Handwritten Digits with the MNIST Dataset</h2>
+<p>The goal of this lab is to build a simple neural network using PyTorch that can classify images of handwritten digits from the MNIST dataset. The MNIST dataset contains images of digits from 0 to 9, and the task is to correctly identify the digit in each image.</p>
+<p>This lab walks you through the steps of building a neural network, training it on the dataset, and evaluating its performance. By the end of the lab, you will have an understanding of how neural networks work and how to implement them in PyTorch.</p>
+<h2>Step-by-Step Explanation of the Lab</h2>
+<h3>Step 1: Install Necessary Libraries</h3>
+<p>Before starting, you need to ensure that the required libraries are installed. In this lab, we use PyTorch to build the neural network, torchvision to load the MNIST dataset, and matplotlib to visualize the images. The installation can be done using pip.</p>
+<h3>Step 2: Import Libraries</h3>
+<p>After installing the libraries, the next step is to import them into the Jupyter notebook. This includes importing PyTorch and torchvision for model building and data loading, and matplotlib for plotting the data.</p>
+<h3>Step 3: Load and Preprocess the MNIST Dataset</h3>
+<p>The MNIST dataset is loaded using the torchvision library. Before using the dataset, it is transformed into tensors, and the pixel values are normalized to a range between -1 and 1. The data is split into training and test sets, and we use the DataLoader class to efficiently load the data in batches during training and evaluation.</p>
+<h3>Step 4: Define the Neural Network Model</h3>
+<p>In this step, we define a simple neural network. The network has an input layer that flattens the 28x28 pixel image into a 784-element vector, followed by two hidden layers with ReLU activation functions, and an output layer with 10 units (one for each digit). The model is implemented using PyTorch's nn.Module class.</p>
+<h3>Step 5: Define Loss Function and Optimizer</h3>
+<p>The CrossEntropyLoss function is used as the loss function, which is commonly used for multi-class classification problems. The optimizer chosen is stochastic gradient descent (SGD), which updates the weights of the model during training based on the gradients computed by backpropagation.</p>
+<h3>Step 6: Train the Neural Network</h3>
+<p>During the training process, the model is trained for a specified number of epochs (iterations over the training dataset). In each epoch, the data is passed through the model, the loss is computed, and the model's weights are updated using the optimizer. After each epoch, the average loss is printed to monitor the training progress.</p>
+<h3>Step 7: Evaluate the Model</h3>
+<p>Once the model is trained, it is evaluated on the test dataset. The images from the test set are passed through the model, and the predicted labels are compared with the actual labels. The accuracy of the model is calculated based on how many predictions match the actual labels.</p>
+<h3>Step 8: Visualize the Results</h3>
+<p>To better understand how the model performs, the lab includes a step to visualize the predictions for a few test images. The true labels and predicted labels are displayed alongside the images, giving insight into how well the model has learned to recognize the digits.</p>
+<h2>Additional Exercises</h2>
+<h3>Exercise 1: Experiment with Network Architecture</h3>
+<p>In this exercise, you are encouraged to modify the neural network architecture by adding more hidden layers or changing the number of neurons in each layer. You will observe how these changes affect the model's performance on the MNIST dataset.</p>
+<h3>Exercise 2: Change the Learning Rate</h3>
+<p>In this exercise, you will experiment with different learning rates in the optimizer. The learning rate controls how much the model's weights are updated during each iteration of training. By adjusting the learning rate, you will see how it affects the speed of convergence and the final accuracy.</p>
+<h3>Exercise 3: Use a Different Optimizer</h3>
+<p>Here, you will try using a different optimizer, such as Adam, which is often more efficient than SGD for training deep neural networks. The Adam optimizer adapts the learning rate during training and generally leads to faster convergence.</p>
+<h2>Link to Jupyter Notebook</h2>
+<p>You can access the full lab in the Jupyter notebook format here:</p>
+<p><a href="../../Lab1_Building_Simple_NN.ipynb" target="_blank" rel="noopener">Lab : Building a Simple Neural Network with PyTorch - Jupyter Notebook</a></p></body></html>

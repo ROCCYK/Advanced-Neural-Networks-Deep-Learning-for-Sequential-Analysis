@@ -1,0 +1,543 @@
+
+/** Typography **/
+
+body {font-family: Arial, Helvetica, sans-serif; font-size:14px; font-weight:normal; line-height:1.375em; color:#000;}
+p {font-size:14pt;}
+ol {font-size:14pt;}
+ul {font-size:14pt;}
+
+
+/** Headings **/
+
+h1 {font-family: Oswald Light, Arial, sans-serif; color:#0B8261; font-size:36pt;}
+h2 {font-family: Oswald, Arial, sans-serif; color:#0B8261; font-size:24pt; margin-bottom: 20px;}
+h3 {font-family: Oswald, Arial, sans-serif; color:#0B8261; font-size:20pt;}
+h4 {font-family: Oswald, Arial, sans-serif; color:#0B8261; font-size:18pt;}
+h5 {font-family: Oswald, Arial, sans-serif; color:#0B8261; font-size:16pt;}
+h6 {font-family: Oswald, Arial, sans-serif; color:#0B8261;}
+
+/** Heading Line Spacing **/
+
+body h1, body h2, body h3, body h4, body h5, body h6 {line-height:1.25em;}
+
+
+
+/** Hyperlinks **/
+
+a {color: #0B8261; text-decoration: underline;}
+a:hover {color: #0B8261; text-decoration: underline;}
+a:visited {color: #0B8261; text-decoration: underline;}
+a:active {color: #0B8261; text-decoration: underline;}
+a:focus {color: #0B8261; text-decoration: underline;}
+
+
+/** Tables **/
+
+.table-responsive-md > table {
+  margin-bottom: 20px;
+}
+
+.table-responsive-md > th {background-color: #0B8261;}
+.table-responsive-md > td p {font-size:14pt; color: #000;}
+.table-responsive-md > table > caption {font-size:16pt; color: #fff; padding: 20px; background-color: #0B8261; border-radius: 0px;}
+
+.table-responsive-md > table > thead > tr > th {
+	font-size:16pt; 
+	color: #fff;
+  font-weight: bold;
+  background-color: #0B8261;
+}
+
+/** Weekly Study Tables **/
+
+.table-responsive-md > table.study-table {
+  table-layout: fixed; /* Give all columns in the table equal width */
+}
+
+.table-responsive-md > table.study-table > thead > tr > th, 
+.table-responsive-md > table.study-table > tbody > tr > th {
+  font-size: 14pt;
+  padding: 0px 0px 0px 0px;
+  height: 50px;
+  text-align: center;
+  color: #fff;
+  background-color: #0B8261;
+}
+ 
+.table-responsive-md > table.study-table > tbody > tr > td {
+  padding: 8px;
+}
+
+.table-responsive-md > table.study-table > caption {
+  font-size: 14pt;
+  padding: 16px 0px 16px 0px;
+  text-align: center;
+}
+
+
+
+/** BlockQuote **/
+
+blockquote{
+  color: #0B8261;
+}
+
+/** Large Number List **/
+
+ol.large-number li:before {
+  color: #0B8261;
+}
+
+
+
+/** BlockQuote **/
+
+ol > .large-number {
+  color: #fff;
+}
+
+
+
+/** Footer Section **/
+
+/** Large screens Footer Section **/
+
+@media (min-width: 768px){
+.dc_footer{
+  background-color: #f7f7f7;
+  position: relative;
+  padding: 10px 0px;
+  margin: 20px 0px;
+  height: 150px;
+}
+
+.dc_footer img{
+  max-width: 131px;
+}
+
+.dc_copyright{
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  padding-right: 30px;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.footer_img{
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  float: left; 
+  padding-left: 10px;
+  }
+}
+
+/** Small screens Footer Section **/
+
+@media (max-width: 768px){
+
+  .dc_footer{
+  background-color: #f7f7f7;
+  position: relative;
+  padding: 10px 0px;
+  margin: 20px 0px;
+  height: 130px;
+  border-top: solid 1px #e5e5e5;
+  }
+
+  .dc_footer p{
+    margin-top: 15px;
+    text-align: center;
+    padding: 0px;
+    float: none;
+    font-size:14px;
+  }
+
+  .dc_footer img{
+  float: none; 
+  max-width: 100px;
+  margin-top: 5px;
+  }
+
+  .footer_img_wrap{
+    text-align: center;
+  }
+}
+
+
+
+/** Dividing line spacing **/
+
+hr {
+  border-top: 2px solid #D3D9E3;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+
+
+/** Images Section **/
+
+/** Professor Profile Picture **/
+
+@media (min-width: 768px){
+  .profile_picture{
+  max-width: 350px; 
+  }
+}
+
+@media (max-width: 768px){
+  .profile_picture{
+  max-width: 250px; 
+  }
+}
+
+/** Floating Image Margins **/
+
+img[style*="float:left"],
+img[style*="float: left"] {
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+
+img[style*="float:right"],
+img[style*="float: right"] {
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+/* push text below image floated right or left by making width 100% when smaller screen size*/
+
+@media only screen and (max-width: 576px) {
+  img {
+      width: 100% !important;
+  }
+}
+
+/** LISTS **/
+
+/** Bullets for Lists **/
+
+/** spacing new bullets from font awesome icons **/
+.listiconspace {
+  margin-right: 10px;
+  color: #0B8261;
+}
+
+
+
+/** ACCORDIANS **/
+
+/** Accordian Open Icon **/
+
+.open_sign{
+    float: right;
+    color:#0B8261;
+    max-width: 15px;
+  }
+
+/** Accordian spacing **/
+
+.card-header {
+  border-top: 1px;
+}
+
+
+
+
+/** Start_End_Tags **/
+
+/** Used in the comprhensive elements page  **/
+.start_end_tag {
+  color: #c00000;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+
+
+/** Call Outs Section **/
+
+
+/** Light backgrounds (to be used with black fonts) **/
+
+/** Light Background Spacing **/
+.lightbg{
+	padding: 10px 0px;
+	margin: 20px 0px;
+}
+
+.lightbg p{
+  margin-top: 20px;
+}
+
+/** Light Background Colours **/
+.teal-lb {
+  background-color:#cdebe2;
+  border: solid 1px #b9d2c9;
+}
+.brown-lb {background-color:#baaba4;}
+.red-lb {
+  background-color:#f8f3f5;
+  border: solid 1px #CBB2BD;
+}
+.green-lb {
+  background-color:#f7fff7;
+  border: solid 1px #cdebe2;
+}
+.grey-lb {
+  background-color:#f7f7f7;
+  border: solid 1px #cccccc;
+}
+
+/** Light Background Font Colours **/
+.lightbg h1, .lightbg h2, .lightbg h3, .lightbg h4, .lightbg h5, .lightbg h6 {color: #000;}
+
+/** Light Background Hyperlink Colours **/
+.lightbg a, .lightbg a:hover, .lightbg a:visited, .lightbg a:active, .lightbg a:focus {color: #000; text-decoration: underline;}
+
+
+/** Dark backgrounds (to be used with white fonts) **/
+
+/** Dark Background Spacing **/
+.darkbg{
+	padding: 10px 0px;
+	margin: 20px 0px;
+}
+
+.darkbg p{
+  margin-top: 20px;
+}
+
+/** Dark Background Colours **/
+.green-db {
+  background-color:#0b8261;
+
+}
+.brown-db {
+  background-color:#3e2b2f;
+}
+.red-db {
+  background-color:#721b43;
+}
+.grey-db {
+  background-color:#455560;
+}
+
+/** Dark Background Font Colours **/
+.darkbg h1, .darkbg h2, .darkbg h3, .darkbg h4, .darkbg h5, .darkbg h6 {color: #fff;}
+.darkbg p {color: #fff;}
+
+/** Dark Background Hyperlink Colours **/
+.darkbg a, .darkbg a:hover, .darkbg a:visited, .darkbg a:active, .darkbg a:focus {color: #fff;}
+
+
+
+/** Interactive Elements **/
+
+/** Tabs **/
+.nav-tabs {
+  margin: 20px 0px;
+}
+
+.bs-callout ul li {
+  padding-bottom: 0px;
+  color: #0B8261;
+}
+
+.tab-content {
+  padding-top: 20px;
+}
+
+/** Tabs **/
+.nav-pills li a {
+  background-color: #0B8261;
+}
+
+
+/** Resize Tabs for mobile layout **/
+@media (max-width: 768px) {
+  /** Tabs **/
+  .nav-tabs {
+    margin: 0px;
+  }
+
+  .bs-callout ul li a {
+    margin-bottom: 0px;
+    color: #0B8261;
+  }
+
+  /* Nav Pills */
+  .nav-tabs>.active>a, .nav-tabs>.active>a:focus, .nav-tabs>.active>a:hover {
+    border: 1px solid #0B8261;
+  }
+  .nav-tabs>li>a {
+    border-bottom: none;
+  }
+  .nav-tabs>li>a.active, .nav-tabs>li>a.active:hover, .nav-tabs>li>a.active:focus {
+    color: #fff;
+    background-color: #0B8261;
+    text-decoration: none;
+  }
+  .nav-tabs>li>a {
+    margin-right: 0;
+    border-radius: 4px;
+  }
+  .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+  }
+
+  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #0B8261;
+    border: 1px solid #0B8261;
+  }
+
+  /* Justify (evenly space) navigation for mobile devices */
+  .nav-tabs .nav-item {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+}
+
+
+/** Buttons **/
+
+.btn-dcgreen{
+  padding: 10px 20px;
+  margin-right: 20px;
+  background-color: #0B8261;
+  color: #fff;
+}
+
+a.btn-dcgreen {color: #fff;}
+a.btn-dcgreen:hover {color: #fff; text-decoration: none;}
+a.btn-dcgreen:visited {color: #fff; text-decoration: none;}
+a.btn-dcgreen:active {color: #fff; text-decoration: none;}
+a.btn-dcgreen:focus {color: #fff; text-decoration: none;}
+
+button.btn-dcgreen {color: #fff;}
+button.btn-dcgreen:hover {color: #fff; text-decoration: none;}
+button.btn-dcgreen:visited {color: #fff; text-decoration: none;}
+button.btn-dcgreen:active {color: #fff; text-decoration: none;}
+button.btn-dcgreen:focus {color: #fff; text-decoration: none;}
+
+/** Custom Activities Global variables**/
+:root {
+  --ooeColor:#FF4713;
+}
+
+/** Advanced Tabs and Accordions Builder Tables **/
+.Advance-TabAccords-Builder-Table > thead > tr > th {
+  color: #fff;
+  background-color: #3E2B2F;
+  font-size: 14pt;
+  padding: 10px;
+}
+
+.Advance-TabAccords-Builder-Table > thead > tr > th.tabAccordID {
+  width:5%; 
+  text-align: center;
+}
+
+.Advance-TabAccords-Builder-Table > thead > tr > th.tabAccordName {
+  width:10%; 
+  text-align: center;
+}
+
+.Advance-TabAccords-Builder-Table > thead > tr > th.tabAccordContent {
+  width:85%; 
+}
+
+.Advance-TabAccords-Builder-Table > tbody > tr > td {
+  border: 1px dashed #000000;
+}
+
+.Advance-TabAccords-Builder-Table > tbody > tr > td > p {
+  font-size: 12pt;
+}
+
+/** Info Card for the CustomActivity style**/
+div.card.only-on-edit {
+  border-color: var(--ooeColor);
+  margin-bottom: 20px;
+}
+
+.card.only-on-edit > div.card-header {
+  background-color: #ffffff; border-color: var(--ooeColor);
+}
+
+.card.only-on-edit > div.card-header > p.card-heading {
+  font-size: 12pt;
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+
+.card.only-on-edit > div.card-body > p, .card.only-on-edit > div.card-body > ul > li {
+  font-size: 12pt;
+  line-height: 24px;
+  padding-bottom: 10px;
+}
+
+.card.only-on-edit > div.card-body > p {
+  margin-bottom: 0px;
+}
+
+/** for editable areas for CustomActivity **/
+span.edit-able {
+  border: 2px dashed #767676; 
+  padding: 9px 16px; 
+  border-radius: 4px;
+  line-height: 50px;
+}
+/** for text that is visible to instructor in edit mode **/
+span.only-on-edit, h2.only-on-edit, i.fa-question-circle {
+  color: var(--ooeColor);
+}
+
+div.only-on-edit-panel{
+  margin-bottom: 20px; 
+  padding: 20px; 
+  border: 1px dotted var(--ooeColor);
+  background-color: #FFFAFA;
+  border-radius: 4px;
+}
+div.Advance-MCTFQ-Editor{
+  padding: 30px 25px;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 4px;
+}
+/** mark-as-ooe: mark as only-on-edit any thing that needs to be the color **/
+.mark-as-ooe, i.fa-edit {
+  color: var(--ooeColor);
+  font-weight: bold;
+}
+
+/** for editable areas for CustomActivity and remove on edit mode veiw quiz bullets **/
+ol.opt-listing > li > label{
+  display: block;
+}
+
+section.new-question{
+  margin-bottom: 15px;
+}
+
+h3.card-heading{
+  margin-top: 0px; 
+  margin-bottom: 0px;
+}
+
+h3.card-heading a{
+  text-decoration: none;
+}
+/* _setPath Done */

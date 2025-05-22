@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Weekly Content</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Added Styles -->
+
+	<!-- Bootstrap CDN CSS -->
+	<link rel="stylesheet" href="../assets/thirdpartylib/bootstrap-4.4.1/css/bootstrap.min.css">
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="../assets/thirdpartylib/fontawesome-free-5.12.0-web/css/all.css">
+	<!-- Google Fonts CSS -->
+	<link href="https://fonts.googleapis.com/css?family=Lato|Oswald&amp;display=swap" rel="stylesheet">
+	<!-- D2L Daylight Course Styles -->
+	<link rel="stylesheet" href="../assets/css/main.min.css">
+	<!-- Durham College Styles -->
+	<link rel="stylesheet" href="../css/dcss.css">  
+
+</head><body class="content" role="document"><div class="container-fluid"><br><main>
+<div class="banner-img"><img src="../dc-images/banners/banner-12.jpg" alt="Durham College campus scene"></div>
+<!-- Start of Content Activities -->
+<h1 style="text-align: center;">Installing PyTorch: Step-by-Step Guide</h1>
+<p>Installing PyTorch is a straightforward process, but it varies depending on your operating system, the Python environment you are using, and whether you want to utilize GPU acceleration. This guide will walk you through the necessary steps to install PyTorch on your system.</p>
+<hr><!-- Start of Content Sections -->
+<h3>Installing PyTorch on Windows, macOS, and Linux</h3>
+<p>To install PyTorch, you need to choose the appropriate commands based on your operating system and Python environment. Below are the steps for installing PyTorch using pip, which is the most common method. You can also use Conda if you have Anaconda installed.&nbsp;</p>
+<h4>Step 1: Check System Requirements</h4>
+<ul>
+<li><strong>Python:</strong> Ensure you have Python 3.6 or newer installed on your system.</li>
+<li><strong>CUDA (Optional):</strong> If you have an NVIDIA GPU and wish to utilize GPU acceleration, ensure that the appropriate CUDA drivers are installed.</li>
+</ul>
+<h4>Step 2: Visit the Official PyTorch Website</h4>
+<ul>
+<li>Go to the <a target="_blank" rel="noopener" href="https://pytorch.org/get-started/locally/">PyTorch installation page</a> to find the latest installation instructions tailored to your system. The page will provide you with the command you need based on your operating system, package manager, and CUDA version.</li>
+</ul>
+<h4><strong>Step 3: Install PyTorch Using pip or Conda</strong></h4>
+<ul>
+<li>
+<p>Depending on your system and preferences, you can use pip (Python package installer) or Conda to install PyTorch. Below are examples for different setups:</p>
+<ul>
+<li>
+<p><strong>Windows (pip with CPU support):</strong></p>
+<div>
+<div></div>
+<div dir="ltr"><code>pip install torch torchvision torchaudio
+</code></div>
+</div>
+</li>
+<li>
+<p><strong>Windows (pip with GPU support):</strong></p>
+<div>
+<div></div>
+<div dir="ltr"><code>pip install torch torchvision torchaudio --extra-index-url <a href="https://download.pytorch.org/whl/cu113">https://download.pytorch.org/whl/cu113</a>
+</code></div>
+</div>
+</li>
+<li>
+<p><strong>macOS (pip with CPU support):</strong></p>
+<div>
+<div></div>
+<div dir="ltr"><code>pip install torch torchvision torchaudio
+</code></div>
+</div>
+</li>
+<li>
+<p><strong>Linux (pip with GPU support):</strong></p>
+<div>
+<div></div>
+<div dir="ltr"><code>pip install torch torchvision torchaudio --extra-index-url <a href="https://download.pytorch.org/whl/cu113">https://download.pytorch.org/whl/cu113</a>
+</code></div>
+</div>
+</li>
+<li>
+<p><strong>Conda (Any OS with GPU support):</strong></p>
+<div>
+<div></div>
+<div dir="ltr"><code>conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+</code></div>
+</div>
+</li>
+</ul>
+<p><strong></strong></p>
+</li>
+</ul>
+<h4>Step 4: Verify Installation</h4>
+<p>After installing PyTorch, open a Python shell and enter the following command to verify that PyTorch has been installed correctly:</p>
+<div>
+<div dir="ltr"><code>import torch
+print(torch.__version__)
+</code></div>
+</div>
+<p></p>
+<p>You should see the PyTorch version number printed out without any errors. If this step completes successfully, you have installed PyTorch correctly on your system.</p>
+<h4>Step 5: Test PyTorch (Optional)</h4>
+<p>To ensure everything works as expected, try running a simple PyTorch operation:</p>
+<div>
+<div dir="ltr"><code>x = torch.rand(5, 3)
+print(x)
+</code></div>
+</div>
+<p></p>
+<p>This will create a 5x3 matrix of random numbers and print it to the console.</p>
+<p></p>
+<h3>Additional Notes</h3>
+<ul>
+<li>For detailed troubleshooting and advanced configurations, refer to the <a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/index.html">PyTorch Documentation</a>.</li>
+<li>If you are using a Jupyter Notebook, you may need to use the <code>!</code> command to run shell commands, such as <code>!pip install torch torchvision torchaudio numpy</code></li>
+</ul>
+<p>By following these steps, you should have a functional PyTorch installation on your machine, ready for building and training machine learning models.</p>
+<hr>
+<h3>Installation Video Guide</h3>
+<div style="display: flex; justify-content: center; margin: 20px 0;"><iframe width="800" height="450" src="https://www.youtube.com/embed/EMXfZB8FVUA?si=W9Mfcm47_kEKpOuq&amp;wmode=opaque&amp;rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="allowfullscreen">
+    </iframe></div>
+<hr><!-- Start of Resources & References -->
+<ul>
+<li>Photography on this page used with permission from the <a href="http://photos.durhamcollege.ca/pages/home.php" target="_blank" rel="noopener">Durham College Online Photo Database</a>.</li>
+</ul>
+<hr><!-- Start of Durham College Footer -->
+<div class="dc_footer row">
+<div class="col-md-6 col-sm-12 footer_img_wrap"><img src="../assets/img/dc-logo.svg" class="img-fluid footer_img" alt="Durham College Logo"></div>
+<div class="col-md-6 col-sm-12">
+<p class="dc_copyright">© Durham College. All rights reserved.</p>
+</div>
+</div>
+<!-- End of Durham College Footer --></main></div>
+<!-- jQuery Version 1.12.4 -->
+<p>
+<script src="../assets/thirdpartylib/jquery/jquery.min.js"></script>
+</p>
+<!-- Bootstrap CDN JS -->
+<p>
+<script src="../assets/thirdpartylib/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+</p>
+<!-- Font Awesome JS -->
+<p>
+<script src="../assets/thirdpartylib/fontawesome-free-5.12.0-web/js/all.js"></script>
+</p>
+<!-- DC Custom JS Functions -->
+<p>
+<script src="../js/custom.js" type="text/javascript"></script>
+</p></body></html>

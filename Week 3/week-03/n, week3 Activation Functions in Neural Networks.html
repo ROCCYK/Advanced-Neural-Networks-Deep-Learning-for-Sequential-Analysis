@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation Functions in Neural Networks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            margin: 20px;
+            line-height: 1.8;
+            color: #002a38;
+        }
+        h1, h2, h3 {
+            color: #00827f;
+        }
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+        }
+        pre {
+            padding: 10px;
+            border-left: 4px solid #00827f;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.1em;
+            color: #002a38;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+        }
+    </style>
+</head><body><h1>Activation Functions in Neural Networks</h1>
+<h2>Introduction to Activation Functions</h2>
+<p>Activation functions are essential in neural networks because they introduce non-linearity into the model. Without non-linearity, no matter how many layers a neural network has, it behaves like a simple linear model. Non-linearity enables the network to model complex relationships in data, making it more powerful and capable of solving real-world problems.</p>
+<p>In neural networks, the activation function transforms the input from the previous layer into an output for the next layer. Below are some of the most common activation functions, their usage, and simple implementations in PyTorch.</p>
+<h2>1. Step Function</h2>
+<p>The <strong>Step function</strong> is one of the simplest activation functions. It outputs either 0 or 1, depending on whether the input is less than or greater than a threshold (usually 0). While it’s useful in binary classification, the Step function is rarely used in modern neural networks due to its lack of smooth gradients, making it unsuitable for optimization with gradient-based methods.</p>
+<p><strong>Formula:</strong></p>
+<p>\[ f(x) = \begin{cases} 1, &amp; \text{if } x &gt; 0 \\ 0, &amp; \text{if } x \leq 0 \end{cases} \]</p>
+<pre><code>def step_activation_function(x):
+    if x &gt; 0:
+        return 1
+    else:
+        return 0
+
+inputs = [-1, 0, 1]
+outputs = [step_activation_function(x) for x in inputs]
+print("Step function outputs:", outputs)
+    </code></pre>
+<p><strong>Usage:</strong> The step function can be used in basic perceptrons for binary classification tasks but is not suitable for deep learning models.</p>
+<h2>2. Sigmoid Activation Function</h2>
+<p>The <strong>Sigmoid function</strong> is a popular activation function used in binary classification problems. It maps the input to a value between 0 and 1, making it useful for problems where the output is a probability. However, the Sigmoid function suffers from the <strong>vanishing gradient problem</strong>, where large or small input values result in near-zero gradients, slowing down learning.</p>
+<p><strong>Formula:</strong></p>
+<div class="formula">Formula: σ(x) = 1 / (1 + e^(-x))</div>
+<pre><code>import torch
+
+# Sigmoid activation function in PyTorch
+inputs = torch.tensor([-1.0, 0.0, 1.0])
+sigmoid_output = torch.sigmoid(inputs)
+print("Sigmoid Outputs:", sigmoid_output)
+    </code></pre>
+<p><strong>Usage:</strong> Sigmoid is commonly used in the output layer for binary classification tasks, especially where outputs represent probabilities.</p>
+<h2>3. Tanh (Hyperbolic Tangent) Activation Function</h2>
+<p>The <strong>Tanh function</strong> (or hyperbolic tangent) is similar to the sigmoid function but outputs values between -1 and 1. Tanh is zero-centered, meaning that its output is symmetric around 0. This makes it easier to train models since the gradients are centered around 0. However, like Sigmoid, it suffers from the vanishing gradient problem.</p>
+<p><strong>Formula:</strong></p>
+<div class="formula">Formula: tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))</div>
+<pre><code># Tanh activation function in PyTorch
+tanh_output = torch.tanh(inputs)
+print("Tanh Outputs:", tanh_output)
+    </code></pre>
+<p><strong>Usage:</strong> Tanh is used in hidden layers of neural networks and works well for classification tasks where outputs range between -1 and 1. It is often used in recurrent neural networks (RNNs).</p>
+<h2>4. ReLU (Rectified Linear Unit)</h2>
+<p>The <strong>ReLU function</strong> is one of the most widely used activation functions in deep learning models. It outputs the input value if it’s positive, and 0 otherwise. ReLU is simple and computationally efficient, making it ideal for training deep neural networks. However, it can suffer from the "dead neuron" problem, where neurons stop learning if they always output 0 for negative inputs.</p>
+<p><strong>Formula:</strong></p>
+<div class="formula">Formula: ReLU(x) = max(0, x)</div>
+<pre><code># ReLU activation function in PyTorch
+relu_output = torch.relu(inputs)
+print("ReLU Outputs:", relu_output)
+    </code></pre>
+<p><strong>Usage:</strong> ReLU is used in hidden layers of deep neural networks, especially in convolutional neural networks (CNNs). Its simplicity and efficiency make it the most popular activation function.</p>
+<h2>5. Leaky ReLU</h2>
+<p>The <strong>Leaky ReLU function</strong> is a variation of the ReLU function that allows a small, non-zero gradient for negative inputs. This addresses the problem of "dead neurons" by ensuring that neurons can still learn even when their inputs are negative.</p>
+<p><strong>Formula:</strong></p>
+<div class="formula">Formula: Leaky ReLU(x) = x if x &gt; 0 else αx (α is a small constant, typically 0.01)</div>
+<pre><code># Leaky ReLU activation function in PyTorch
+leaky_relu_output = torch.nn.functional.leaky_relu(inputs, negative_slope=0.01)
+print("Leaky ReLU Outputs:", leaky_relu_output)
+    </code></pre>
+<p><strong>Usage:</strong> Leaky ReLU is often used in deep learning models to prevent the dead neuron problem, especially when ReLU neurons tend to output 0 for a long time.</p>
+<h2>6. Softmax Activation Function</h2>
+<p>The <strong>Softmax function</strong> is used in the output layer for multi-class classification problems. It converts raw scores (logits) into probabilities that sum to 1. This makes it ideal for tasks where the model needs to predict one of several classes.</p>
+<p><strong>Formula:</strong></p>
+<div class="formula">Formula: Softmax(x_i) = e^(x_i) / Σ e^(x_j) (sum over all classes j)</div>
+<pre><code># Softmax activation function in PyTorch
+inputs = torch.tensor([1.0, 2.0, 3.0])
+softmax_output = torch.softmax(inputs, dim=0)
+print("Softmax Outputs:", softmax_output)
+    </code></pre>
+<p><strong>Usage:</strong> Softmax is generally used in the output layer of a neural network for multi-class classification tasks. It ensures that the output values can be interpreted as probabilities.</p>
+<h2>Conclusion</h2>
+<p>Activation functions introduce non-linearity into neural networks, which is essential for learning complex patterns. ReLU is the most commonly used in hidden layers, while Sigmoid and Softmax are typically used in output layers for classification problems. Understanding the behavior of these functions can help optimize the performance of neural networks in various tasks.</p></body></html>

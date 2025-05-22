@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSC 41000: Understanding Gradient Descent in PyTorch</title>
+
+    <!-- MathJax for rendering mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+           
+            margin: 20px;
+            text-align: left;
+        }
+
+        h1, h2, h3 {
+            color: #004c3f;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin-bottom: 0.3em;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+
+        code {
+            background-color: #e0f2f1;
+            padding: 0.5em;
+            display: block;
+            margin: 0.5em 0;
+            font-size: 1.1em;
+            border-radius: 5px;
+        }
+
+        ul {
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: left;
+            font-size: 1em;
+            color: #004c3f;
+        }
+    </style>
+</head><body><div class="container">
+<div class="section">
+<h1>Understanding Gradient Descent in PyTorch</h1>
+<p>This module explains Gradient Descent in simple language, focusing on step-by-step understanding of how it works, what its components are, and how to implement it in PyTorch.<br>.</p>
+</div>
+<div class="section">
+<h2>1. What is Gradient Descent?</h2>
+<p>Gradient Descent is a way to help a model learn by updating its parameters (such as weights and biases) so that the predictions it makes get closer to the correct answer. The goal is to minimize the error or difference between the model’s predictions and the actual values. This error is usually represented by a function called the <strong>loss function</strong>.</p>
+<p>Think of Gradient Descent as hiking down a hill. You start at a high point (random model parameters) and take steps down the hill (updates to the parameters) until you reach the lowest point (the best possible parameters that minimize the error).</p>
+<h3>Key Concepts:</h3>
+<ul>
+<li><strong>Parameters</strong>: These are the weights and biases that the model adjusts to make better predictions.</li>
+<li><strong>Loss Function</strong>: A function that measures how far the model’s predictions are from the actual values. We want to minimize this function.</li>
+<li><strong>Learning Rate</strong>: Controls the size of the steps we take to update the parameters. Too big and we might miss the optimal solution; too small and it will take too long to find it.</li>
+</ul>
+</div>
+<div class="section">
+<h2>2. How Does Gradient Descent Work? (Step-by-Step)</h2>
+<p>Gradient Descent works by adjusting the model’s parameters in the direction that reduces the loss. The steps are as follows:</p>
+<h3>Step-by-Step Process:</h3>
+<ul>
+<li><strong>Step 1: Start with Random Parameters</strong><br>The model’s parameters (weights and biases) are initialized randomly. This is like starting your hike from a random point on the hill.</li>
+<li><strong>Step 2: Compute the Predictions</strong><br>The input data is passed through the model (forward pass), and the model makes predictions.</li>
+<li><strong>Step 3: Calculate the Loss</strong><br>The loss function computes the error or difference between the predictions and the actual values. The bigger the error, the higher up the hill you are.</li>
+<li><strong>Step 4: Compute the Gradient</strong><br>The gradient tells us the direction and the rate of change of the loss with respect to the parameters. This is like looking at the slope of the hill to decide which direction to walk in.</li>
+<li><strong>Step 5: Update the Parameters</strong><br>The parameters are updated by taking a small step in the opposite direction of the gradient. This reduces the loss, moving you closer to the optimal parameters.</li>
+<li><strong>Step 6: Repeat</strong><br>This process is repeated over and over until the loss is minimized.</li>
+</ul>
+<h3>Mathematical Formulation:</h3>
+<p>The parameter update rule for Gradient Descent is given by:</p>
+<p>\[ \theta_{\text{new}} = \theta_{\text{old}} - \alpha \cdot \frac{\partial J(\theta)}{\partial \theta} \]</p>
+<ul>
+<li>\( \theta \): The model’s parameters (weights and biases)</li>
+<li>\( \alpha \): The learning rate (how big a step to take)</li>
+<li>\( \frac{\partial J(\theta)}{\partial \theta} \): The gradient of the loss function with respect to the parameters</li>
+</ul>
+</div>
+<div class="section">
+<h2>3. Using Gradient Descent in Neural Networks</h2>
+<p>Now that we understand the basic idea, let’s see how Gradient Descent is used in neural networks to adjust the weights. In PyTorch, we can easily calculate gradients using the <code>autograd</code> engine and update weights using the optimizer.</p>
+<h3>Step-by-Step Example:</h3>
+<p>We will build a simple neural network and use Gradient Descent to update its weights based on the data it sees. Let’s break this down step-by-step:</p>
+<h3>Code Example:</h3>
+<code>
+                import torch<br>
+                import torch.nn as nn<br>
+                import torch.optim as optim<br><br>
+
+                # Define the layers&nbsp;<br>
+                input_layer = nn.Linear(2, 3)  # Input layer to hidden layer<br>
+                output_layer = nn.Linear(3, 1)  # Hidden layer to output layer<br><br>
+
+                # Define the forward pass function<br>
+                def forward_pass(x):<br>&nbsp; &nbsp;x = torch.relu(input_layer(x))  # Apply ReLU activation after the input layer<br>&nbsp; &nbsp;return output_layer(x)  # Output layer returns the prediction<br><br>
+
+                # Example data (inputs and targets)<br>
+                inputs = torch.tensor([[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]])<br>
+                targets = torch.tensor([[1.0], [2.0], [3.0]])<br><br>
+
+                # Loss function (Mean Squared Error)<br>
+                criterion = nn.MSELoss()<br><br>
+
+                # Optimizer (Stochastic Gradient Descent)<br>
+                optimizer = optim.SGD([input_layer.weight, output_layer.weight], lr=0.01)<br><br>
+
+                # Training loop (iterating 100 times)<br>
+                for epoch in range(100):<br>&nbsp; &nbsp;optimizer.zero_grad()  # Reset gradients<br>&nbsp; &nbsp;predictions = forward_pass(inputs)  # Forward pass (make predictions)<br>&nbsp; &nbsp;loss = criterion(predictions, targets)  # Compute loss<br>&nbsp; &nbsp;loss.backward()  # Backward pass (compute gradients)<br>&nbsp; &nbsp;optimizer.step()  # Update weights using the optimizer<br><br>
+
+                print("Final predictions after training:", forward_pass(inputs))
+            </code>
+<h3>Explanation of the Code:</h3>
+<p>This is a simple neural network with one hidden layer. Here's how each part works:</p>
+<ul>
+<li><strong>Defining Layers</strong>: We define the layers directly as <code>input_layer</code> and <code>output_layer</code>. We use a ReLU activation function in between.</li>
+<li><strong>Forward Pass</strong>: The input is passed through the layers, first through the ReLU activation after the input layer and then to the output layer to get predictions.</li>
+<li><strong>Loss Function</strong>: We use Mean Squared Error to measure how far the model's predictions are from the true targets.</li>
+<li><strong>Optimizer</strong>: We use Stochastic Gradient Descent (SGD) to update the weights by following the gradient computed in the backward pass.</li>
+<li><strong>Training Loop</strong>: In each iteration (or "epoch"), the model makes predictions, calculates the loss, computes the gradients, and updates the weights. After 100 iterations, the model’s predictions improve as it learns from the data.</li>
+</ul>
+</div>
+<div class="section">
+<h2>4. Things to Watch Out for When Using Gradient Descent</h2>
+<h3>4.1 Learning Rate</h3>
+<p>The learning rate is one of the most important factors in Gradient Descent. If the learning rate is too high, the model might "overshoot" the optimal solution and fail to converge. If it’s too low, the model might take too long to converge or get stuck in a suboptimal solution.</p>
+<h3>4.2 Convergence</h3>
+<p>For certain types of problems, Gradient Descent can converge to a local minimum rather than the global minimum. This is a common issue in complex models like deep neural networks, where the loss function can have many valleys.</p>
+<h3>4.3 Gradient Vanishing/Exploding</h3>
+<p>In deep networks, the gradients can become extremely small (vanishing) or very large (exploding) as they pass through many layers. This can make training difficult. Using appropriate activation functions (like ReLU) and techniques like gradient clipping can help mitigate these issues.</p>
+</div>
+<footer>Created for COSC 41000</footer></div></body></html>

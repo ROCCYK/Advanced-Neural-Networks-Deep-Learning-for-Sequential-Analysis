@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nanoGPT: Detailed Module with Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #f4faff;
+            padding: 10px;
+            border-left: 5px solid #3498db;
+        }
+        iframe {
+            display: block;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 560px;
+            height: 315px;
+        }
+    </style>
+</head><body><h1>nanoGPT: Understanding, Techniques, and Learning Outcomes</h1>
+<div class="section">
+<h2>What is nanoGPT?</h2>
+<p>nanoGPT is a minimalistic implementation of GPT (Generative Pre-trained Transformer) designed to train a large language model (124M parameters) on Shakespearean text. It leverages character-level modeling and state-of-the-art transformer techniques for simplicity and educational purposes.</p>
+<p><strong>What nanoGPT does:</strong></p>
+<ul>
+<li>Trains a language model to generate Shakespearean-style text.</li>
+<li>Utilizes character-level data for predictive text generation.</li>
+<li>Focuses on efficiency, reproducibility, and educational value.</li>
+</ul>
+<p><strong>What it doesn’t do:</strong> nanoGPT currently lacks a chat interface or interactive querying. A potential project extension could add these capabilities.</p>
+</div>
+<div class="section">
+<h2>Techniques Employed in nanoGPT</h2>
+<ul>
+<li><strong>Transformer Architecture:</strong> Implements self-attention for sequence modeling.</li>
+<li><strong>Character-Level Modeling:</strong> Operates at the character level for text generation.</li>
+<li><strong>Pretraining and Fine-Tuning:</strong> Trains the model on a large corpus and fine-tunes it for specific outputs.</li>
+<li><strong>Optimization:</strong> Uses gradient descent, backpropagation, and PyTorch’s autograd.</li>
+<li><strong>Configurable Hyperparameters:</strong> Allows experimentation with block size, learning rate, and depth.</li>
+</ul>
+</div>
+<div class="section">
+<h2>Learning Outcomes</h2>
+<p>By completing this module, students will:</p>
+<ul>
+<li>Understand transformer-based language models.</li>
+<li>Gain hands-on experience with PyTorch for training neural networks.</li>
+<li>Learn to analyze and modify a real-world GPT implementation.</li>
+<li>Apply nanoGPT to train a model on custom datasets.</li>
+</ul>
+</div>
+<div class="section">
+<h2>Video Lecture and Chapters</h2>
+<p>To fully understand nanoGPT, watch this lecture by Andrej Karpathy:</p>
+<iframe src="https://www.youtube.com/embed/kCc8FmEb1nY?si=P5CAuxcHuTrkPizf" title="nanoGPT Video Lecture" allowfullscreen="allowfullscreen"></iframe></div>
+<div class="section">
+<h2>Supplementary Resources</h2>
+<ul>
+<li><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbEp1UlNRT185a0hOVjczaUtHR2pNTTltVXN0UXxBQ3Jtc0trSFdMNzR1R3d1UlhiX3Q2aWZMeFpfeTZ3M0RKTGhMeGV3QWg1enpINXhXTExLWG5GRDNkQ3pjWDNVYU9RXzNKRl8tQ0luT1FVbm9xa3dOdVNRZFBXUllCTXZYUTMza2xVYl84emNGT192M3hiM1Eybw&amp;q=https%3A%2F%2Fcolab.research.google.com%2Fdrive%2F1JMLa53HDuA-i7ZBmqV7ZnA3c_fvtXnx-%3Fusp%3Dsharing&amp;v=kCc8FmEb1nY" target="_blank" rel="noopener">Google Colab for the Video</a></li>
+<li><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqa1ZwLTJNenJscHZkRDVCVU5mU1BZdkVXZnZUZ3xBQ3Jtc0ttNVNLanhmUTZ0a0VTN25POTRucFU5NFlLcGJETWpROXk0MUdxbVI0M09xd2lPWFdBMVRJOWozc2tscDZyLTVqLWNhel9JNUxLOFZycUpJZDBHTzlJdWxkbEdxdndRN0NuZThmeDBFdXpZTzRNV2FPMA&amp;q=https%3A%2F%2Fgithub.com%2Fkarpathy%2Fng-video-lecture&amp;v=kCc8FmEb1nY" target="_blank" rel="noopener">GitHub Repo for the Video</a></li>
+<li><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbkw3SngxbE5jcnMwdk5tQnEwdXhkTnl0ME0xUXxBQ3Jtc0tsU1E1TGVTeHg1alJIcnJaNmFoR3lkYjY2ZjFUUHVFVXluclo4TEU5dDZZWGNtVzh0aVlGTGt1bVRfMWtVb2oxTnJ0ckxFUFlGa3JmcWhfVGtLbFJ1aVR5T0ZBb3hIMFpCSU12UW9qSWh4eERuMWR3bw&amp;q=https%3A%2F%2Fgithub.com%2Fkarpathy%2FnanoGPT&amp;v=kCc8FmEb1nY" target="_blank" rel="noopener">nanoGPT Repository</a></li>
+<li><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqa1g2ajBJMGx6dlppUGg5RkVYV2xqNGNGMVdpd3xBQ3Jtc0tsNk9hZ2l4RHBCRzhtWnI3MTBFSEtfb25vRUlETUFvS25sbHVZbDhJNjFLS2FCRXhoWklGcEc0YlhGUFcwa0l5RkVpWE5SUEFXcXV5eTZ1MHI3R3hJUHdSdW9naTNQV3FqR1BzN2puQm8xb1BpZE1ibw&amp;q=https%3A%2F%2Farxiv.org%2Fabs%2F1706.03762&amp;v=kCc8FmEb1nY" target="_blank" rel="noopener">Attention is All You Need Paper</a></li>
+<li><a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbjhVMmtzY1FXVmt2Y1RXVnRRRnBWbkFPQnhpUXxBQ3Jtc0tuTWFTUnlSRFhJUG9zMFBBMGJmY3I2aGtfN24zd2hDb1cxc0l2NUQtTTVEUE5vZlcwLWxFS1FtZVZ5U3VlbVIyRHFqZkU3dDV4dWVzanVKbHlrbUVVOGZMVGNYTWxsanZ1Tmk1VHNpclVObVRSSHl3VQ&amp;q=https%3A%2F%2Farxiv.org%2Fabs%2F2005.14165&amp;v=kCc8FmEb1nY" target="_blank" rel="noopener">OpenAI GPT-3 Paper</a></li>
+</ul>
+</div>
+<div class="section">
+<h2>Implementation Steps</h2>
+<ol>
+<li>Clone the GitHub repository:
+<pre>git clone https://github.com/karpathy/nanoGPT.git</pre>
+</li>
+<li>Create and activate a virtual environment:
+<pre>python -m venv nanogpt_env</pre>
+<p>Activate with:</p>
+<ul>
+<li>Mac: <code>source nanogpt_env/bin/activate</code></li>
+<li>Windows: <code>nanogpt_env/Scripts/activate</code></li>
+</ul>
+</li>
+<li>Install dependencies:
+<pre>pip install torch numpy transformers datasets tiktoken wandb tqdm</pre>
+</li>
+<li>Prepare the dataset:
+<pre>python data/shakespeare_char/prepare.py</pre>
+</li>
+<li>Train the model:
+<pre>python train.py config/train_shakespeare_char.py</pre>
+</li>
+<li>Generate text:
+<pre>python sample.py –out_dir=out-shakespeare-char –device=cpu</pre>
+</li>
+</ol>
+</div>
+<div class="section">
+<p>See Project details for implementation of class project mile stone 2 based on this module.&nbsp;</p>
+</div></body></html>

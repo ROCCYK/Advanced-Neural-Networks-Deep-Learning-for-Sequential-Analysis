@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Guide to Tensor Creation in PyTorch</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #ffffff; /* White background */
+            color: #333; /* Dark text for readability */
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #00693E; /* Durham College green color */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #00693E; /* Durham College green color for subheadings */
+            border-bottom: 2px solid #00693E; /* Green underline for subheadings */
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+
+        /* Code and Preformatted Text Styles */
+        code {
+            background-color: #f9f9f9; /* Light gray background for inline code */
+            color: #c7254e; /* Dark red for inline code text */
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        pre {
+            background-color: #f9f9f9; /* Light gray background for code blocks */
+            color: #333; /* Dark text for code blocks */
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #ddd; /* Slight border for emphasis */
+        }
+
+        /* Link and Resource Styles */
+        a {
+            color: #00693E; /* Link color matching Durham College green */
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* List and Summary Styles */
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        /* Container for Padding */
+        .container {
+            padding: 20px;
+            background-color: #ffffff; /* White background for the content container */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+    </style>
+</head><body><div class="container">
+<h1><span style="font-size: 20px;">Comprehensive Guide to Tensor Creation in PyTorch</span></h1>
+<p><span style="font-size: 20px;">This page covers various methods for creating tensors in PyTorch, including creating tensors from data, using random values, generating special tensors, and specifying data types.</span></p>
+<span style="font-size: 20px;"><!-- Tensor Creation from Data --></span>
+<h2><span style="font-size: 20px;">1. Tensor Creation from Data</span></h2>
+<pre><span style="font-size: 20px;">import torch
+
+# Creating a tensor from data (e.g., a list)
+tensor_data = torch.tensor([1.0, 2.0, 3.0])
+print(tensor_data)
+
+# Creating a tensor from a NumPy array
+import numpy as np
+numpy_array = np.array([4, 5, 6])
+tensor_from_numpy = torch.from_numpy(numpy_array)
+print(tensor_from_numpy)
+
+# Creating a tensor with a specified dtype
+tensor_with_dtype = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float32)
+print(tensor_with_dtype)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Basic Tensor Creation --></span>
+<h2><span style="font-size: 20px;">2. Basic Tensor Creation</span></h2>
+<pre><span style="font-size: 20px;"># Create an uninitialized tensor
+tensor_empty = torch.empty(2, 3)
+print(tensor_empty)
+
+# Create a tensor filled with zeros
+tensor_zeros = torch.zeros(3, 3)
+print(tensor_zeros)
+
+# Create a tensor filled with ones
+tensor_ones = torch.ones(2, 2)
+print(tensor_ones)
+
+# Create a tensor filled with a specific value
+tensor_full = torch.full((2, 3), 7)
+print(tensor_full)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Creating Tensors with Ranges --></span>
+<h2><span style="font-size: 20px;">3. Creating Tensors with Ranges</span></h2>
+<pre><span style="font-size: 20px;"># Create a 1D tensor with values from start to end with a step size
+tensor_arange = torch.arange(0, 10, 2)
+print(tensor_arange)
+
+# Create a 1D tensor with evenly spaced values between start and end
+tensor_linspace = torch.linspace(0, 1, steps=5)
+print(tensor_linspace)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Special Tensors --></span>
+<h2><span style="font-size: 20px;">4. Special Tensors</span></h2>
+<pre><span style="font-size: 20px;"># Create an identity matrix of size n x n
+tensor_eye = torch.eye(4)
+print(tensor_eye)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Random Tensor Creation --></span>
+<h2><span style="font-size: 20px;">5. Random Tensor Creation</span></h2>
+<pre><span style="font-size: 20px;"># Create a tensor filled with random numbers from a uniform distribution between [0, 1)
+tensor_rand = torch.rand(2, 3)
+print(tensor_rand)
+
+# Create a tensor filled with random numbers from a normal distribution (mean 0, variance 1)
+tensor_randn = torch.randn(2, 3)
+print(tensor_randn)
+
+# Create a tensor filled with random integers between low and high
+tensor_randint = torch.randint(0, 10, (3, 3))
+print(tensor_randint)
+
+# Return a 1D tensor with a random permutation of integers from 0 to n-1
+tensor_randperm = torch.randperm(5)
+print(tensor_randperm)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Tensors from Specific Data Types --></span>
+<h2><span style="font-size: 20px;">6. Creating Tensors with Specific Data Types</span></h2>
+<pre><span style="font-size: 20px;"># Create a double precision (torch.float64) tensor
+tensor_double = torch.DoubleTensor([1.0, 2.0, 3.0])
+print(tensor_double)
+
+# Create a single precision (torch.float32) tensor
+tensor_float = torch.FloatTensor([1.0, 2.0, 3.0])
+print(tensor_float)
+
+# Create an integer (torch.int32) tensor
+tensor_int = torch.IntTensor([1, 2, 3])
+print(tensor_int)
+
+# Create a tensor on a GPU device (if available)
+if torch.cuda.is_available():
+    tensor_cuda = torch.cuda.FloatTensor([1.0, 2.0, 3.0])
+    print(tensor_cuda)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Converting Data to Tensors --></span>
+<h2><span style="font-size: 20px;">7. Converting Data to Tensors</span></h2>
+<pre><span style="font-size: 20px;"># Convert a NumPy array to a tensor
+numpy_array = np.array([7, 8, 9])
+tensor_from_numpy = torch.from_numpy(numpy_array)
+print(tensor_from_numpy)
+
+# Convert data into a tensor without copying if possible
+tensor_as_tensor = torch.as_tensor([1, 2, 3])
+print(tensor_as_tensor)
+
+# Check the dtype of a tensor
+print(tensor_as_tensor.dtype)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Tensors Like Other Tensors --></span>
+<h2><span style="font-size: 20px;">8. Creating Tensors Like Other Tensors</span></h2>
+<pre><span style="font-size: 20px;"># Create a tensor with the same size as another tensor but filled with zeros
+tensor_zeros_like = torch.zeros_like(tensor_from_numpy)
+print(tensor_zeros_like)
+
+# Create a tensor with the same size as another tensor but filled with ones
+tensor_ones_like = torch.ones_like(tensor_from_numpy)
+print(tensor_ones_like)
+
+# Create an uninitialized tensor with the same size as another tensor
+tensor_empty_like = torch.empty_like(tensor_from_numpy)
+print(tensor_empty_like)
+    </span></pre>
+<span style="font-size: 20px;"><!-- Summary --></span>
+<h2><span style="font-size: 20px;">Summary</span></h2>
+<p><span style="font-size: 20px;">This guide covered various methods for creating tensors in PyTorch, including creating tensors from data, using random values, generating special tensors, and specifying data types. Understanding these commands is crucial for efficiently working with tensors in your deep learning projects.</span></p>
+<span style="font-size: 20px;"><!-- Jupyter Notebooks Section --></span>
+<h2><span style="font-size: 20px;">Tutorial - Jupyter Notebooks</span></h2>
+<p><span style="font-size: 20px;">Here is the tutorial notebook you can download to explore tensor creation interactively:</span></p>
+<p><span style="font-size: 20px;"><a href="../../tensor_creation_tutorial.ipynb" target="_blank" rel="noopener">Tensor Creation Tutorial</a></span></p>
+<span style="font-size: 20px;"><a href="../../tensorqs_tutorial.ipynb" target="_blank" rel="noopener">Pytorch.org tensor tutorial notebook</a><!-- Resources --></span>
+<h2><span style="font-size: 20px;">Resources</span></h2>
+<ul>
+<li style="font-size: 20px;"><span style="font-size: 20px;"><a href="https://pytorch.org/docs/stable/tensors.html" target="_blank" rel="noopener">PyTorch Documentation - Tensors</a></span></li>
+<li style="font-size: 20px;"><span style="font-size: 20px;"><a href="https://pytorch.org/tutorials/" target="_blank" rel="noopener">PyTorch Tutorials</a></span></li>
+<li style="font-size: 20px;"><span style="font-size: 20px;"><a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch Official Website</a></span></li>
+</ul>
+</div></body></html>

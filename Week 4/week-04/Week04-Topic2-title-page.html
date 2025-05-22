@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSC 41000: Autograd and Neural Networks in PyTorch</title>
+
+    <!-- MathJax for rendering mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: black;
+            margin: 20px;
+            text-align: left;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: black;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin-bottom: 0.3em;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+
+        code {
+            background-color: #e0e0e0;
+            padding: 0.5em;
+            display: block;
+            margin: 0.5em 0;
+            font-size: 1.1em;
+            border-radius: 5px;
+        }
+
+        ul {
+            font-size: 1.2em;
+        }
+
+        .section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 900px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: left;
+            font-size: 1em;
+            color: black;
+        }
+    </style>
+</head><body><div class="container">
+<div class="section">
+<h1>Autograd and Neural Networks in PyTorch</h1>
+<p>In this module, you will learn how to use <code>autograd</code> in PyTorch for automatic differentiation, the concepts of the forward and backward pass, and how to build a basic neural network. Additionally, we'll explore how to use data to train a neural network using <code>autograd</code>.</p>
+</div>
+<div class="section">
+<h2>1. What is Autograd?</h2>
+<p><code>autograd</code> is PyTorch’s automatic differentiation engine. It provides an easy way to compute gradients, which are essential for updating parameters in machine learning models. Gradients tell us how much a function's output changes in response to small changes in its input.</p>
+<p>Whenever a tensor has <code>requires_grad=True</code>, PyTorch will keep track of all operations performed on it. During backpropagation, it automatically calculates gradients by differentiating the function with respect to the parameters.</p>
+<h3>Key Points:</h3>
+<ul>
+<li>Tracks all operations on tensors with <code>requires_grad=True</code></li>
+<li>Computes gradients for all variables during backpropagation</li>
+</ul>
+</div>
+<div class="section">
+<h2>2. Forward Pass</h2>
+<p>In a neural network, the forward pass refers to the process of calculating the output of the network from the input. It involves passing the input data through each layer of the network to get the final prediction. This is where all the computations happen, but no gradients are calculated yet.</p>
+<p>In PyTorch, the forward pass is done by simply performing the operations on the input tensor, as shown in the following example.</p>
+<h3>Example:</h3>
+<code>
+                import torch<br>
+                import torch.nn as nn<br><br>
+
+                # Define the layers of the network (without using __init__ and self)<br>
+                hidden_layer = nn.Linear(2, 3)  # Input layer to hidden layer<br>
+                output_layer = nn.Linear(3, 1)  # Hidden layer to output layer<br><br>
+
+                # Define the forward pass function<br>
+                def forward_pass(x):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;# Pass through the hidden layer and apply ReLU activation<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;x = torch.relu(hidden_layer(x))<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;# Pass through the output layer<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;x = output_layer(x)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return x<br><br>
+
+                # Example input tensor<br>
+                input_tensor = torch.tensor([[1.0, 2.0]], requires_grad=True)<br>
+                output = forward_pass(input_tensor)<br>
+                print("Output of the network:", output.item())
+            </code>
+<h3>Explanation:</h3>
+<p>In the above example, we define two layers: a hidden layer and an output layer. The input tensor is passed through the hidden layer where we apply the ReLU activation function. It then passes through the output layer to give the final output. This is the forward pass of the network.</p>
+</div>
+<div class="section">
+<h2>3. Backward Pass and Use of Autograd</h2>
+<p>The backward pass involves calculating the gradients of the loss function with respect to each parameter in the network. This is where <code>autograd</code> comes into play.</p>
+<p>After computing the loss in the forward pass, we can call <code>loss.backward()</code> to calculate the gradients. These gradients are stored in the <code>.grad</code> attribute of each parameter and are used to update the model's weights.</p>
+<h3>Example with Loss and Backward Pass:</h3>
+<code>
+                # Define a simple target (true value)<br>
+                target = torch.tensor([[1.0]])<br><br>
+
+                # Define the loss function (Mean Squared Error)<br>
+                criterion = nn.MSELoss()<br><br>
+
+                # Perform the forward pass to get the prediction<br>
+                prediction = forward_pass(input_tensor)<br><br>
+
+                # Calculate the loss<br>
+                loss = criterion(prediction, target)<br>
+                print("Loss before backpropagation:", loss.item())<br><br>
+
+                # Perform the backward pass to compute gradients<br>
+                loss.backward()<br><br>
+
+                # Print the gradients for the hidden layer weights<br>
+                print("Gradients for hidden layer weights:", hidden_layer.weight.grad)
+            </code>
+<h3>Explanation:</h3>
+<p>Here, we calculate the loss using the mean squared error function between the predicted value and the target value. The <code>loss.backward()</code> function computes the gradients of the loss with respect to each parameter in the network. These gradients are stored in the <code>.grad</code> attribute and are used for updating the model's parameters.</p>
+</div>
+<div class="section">
+<h2>4. Creating a Basic Neural Network</h2>
+<p>In this section, we create a basic neural network by defining the layers directly and using simple functions for the forward pass and backward pass. This approach helps in understanding how layers are connected and how the network operates.</p>
+<h3>Example:</h3>
+<code>
+                # Define the layers<br>
+                hidden_layer = nn.Linear(2, 3)<br>
+                output_layer = nn.Linear(3, 1)<br><br>
+
+                # Define the forward pass function<br>
+                def forward_pass(x):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;x = torch.relu(hidden_layer(x))<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return output_layer(x)<br><br>
+
+                # Define the backward pass function<br>
+                def backward_pass(loss):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;loss.backward()<br><br>
+
+                # Input tensor<br>
+                input_tensor = torch.tensor([[2.0, 3.0]], requires_grad=True)<br><br>
+
+                # Forward pass<br>
+                prediction = forward_pass(input_tensor)<br><br>
+
+                # Define target and loss<br>
+                target = torch.tensor([[1.0]])<br>
+                criterion = nn.MSELoss()<br>
+                loss = criterion(prediction, target)<br><br>
+
+                # Backward pass<br>
+                backward_pass(loss)<br>
+                print("Gradients for the hidden layer:", hidden_layer.weight.grad)
+            </code>
+<h3>Explanation:</h3>
+<p>In this example, the forward pass and backward pass functions are separated, and the layers are defined. This helps in understanding how data flows through the network and how gradients are calculated using <code>autograd</code>.</p>
+</div>
+<div class="section">
+<h2>5. Training the Network with Data</h2>
+<p>In this section, we will use a dataset to train our neural network. We'll perform multiple forward passes, compute the loss, and update the model's parameters using gradient descent.</p>
+<h3>Example of Training with Data:</h3>
+<code>
+                # Example dataset<br>
+                inputs = torch.tensor([[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]], requires_grad=True)<br>
+                targets = torch.tensor([[1.0], [2.0], [3.0]])<br><br>
+
+                # Forward pass, compute loss, and backpropagate for multiple iterations<br>
+                learning_rate = 0.01<br>
+                for epoch in range(100):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;# Forward pass<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;predictions = forward_pass(inputs)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;loss = criterion(predictions, targets)<br><br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;# Zero the gradients before backward pass<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;hidden_layer.weight.grad = None<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;output_layer.weight.grad = None<br><br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;# Backward pass<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;backward_pass(loss)<br><br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;# Update weights using gradient descent<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;with torch.no_grad():<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hidden_layer.weight -= learning_rate * hidden_layer.weight.grad<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output_layer.weight -= learning_rate * output_layer.weight.grad<br><br>
+
+                # Final predictions after training<br>
+                final_predictions = forward_pass(inputs)<br>
+                print("Final predictions:", final_predictions)
+            </code>
+<h3>Explanation:</h3>
+<p>We train the network using a simple dataset for 100 epochs. During each epoch, we perform the forward pass, compute the loss, and perform the backward pass to compute gradients. After computing the gradients, we update the weights using gradient descent. Finally, we check the model's predictions after training.</p>
+</div>
+<footer>Created for COSC 41000</footer></div></body></html>

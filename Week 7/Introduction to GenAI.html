@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Sequence Models and Generative AI - Module</title>
+    <style>
+        /* Basic styling with Durham College colors */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #00743E; /* Durham green */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+            border-bottom: 2px solid #00573D; /* Darker green for header underline */
+            padding-bottom: 5px;
+        }
+        .content-section {
+            margin-top: 20px;
+        }
+        .quiz-section {
+            background-color: #E6F3EF; /* Light green */
+            padding: 15px;
+            border-left: 4px solid #00743E;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .quiz-section p {
+            margin-bottom: 10px;
+        }
+        .quiz-section label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #00743E; /* Durham green */
+            color: #FFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        iframe {
+            width: 100%;
+            height: 315px;
+            margin-top: 10px;
+        }
+    </style>
+</head><body><div class="container">
+<h1>Introduction to Generative AI</h1>
+<!-- Module Introduction -->
+<div class="content-section">
+<h2>Overview</h2>
+<p>In recent years, Generative AI and sequence models have emerged as transformative technologies, powering advancements in natural language processing (NLP), computer vision, and other AI fields. Sequence models handle sequential information, making them ideal for applications like language translation, text summarization, and audio generation.</p>
+<p>Generative AI, a subfield of artificial intelligence, focuses on creating new content, such as text, images, or audio, based on existing data patterns. It powers many applications today, including AI chatbots, image generators, and text-based games. Central to the recent success of Generative AI are transformer-based models, offering unparalleled performance in language-based tasks.</p>
+<p>This module provides an overview of key concepts in Generative AI and sequence models, highlighting the importance of transformer models, such as BERT and GPT, and discussing their unique components.</p>
+</div>
+<!-- Understanding Sequence Models -->
+<div class="content-section">
+<h2>Understanding Sequence Models</h2>
+<h3>What Are Sequence Models?</h3>
+<p>By now you know that sequence models are machine learning models designed to process and generate sequences of data. They are particularly useful in applications requiring understanding of sequence structure, such as:</p>
+<ul>
+<li><strong>Machine Translation</strong>: Translating text by understanding linguistic patterns.</li>
+<li><strong>Text Summarization</strong>: Condensing long documents while preserving key information.</li>
+<li><strong>Speech Recognition</strong>: Converting spoken language into text.</li>
+</ul>
+<p>Sequence models work by learning relationships within data sequences, enabling them to handle structured, sequential information effectively.</p>
+<h3>Traditional Sequence Models</h3>
+<div>
+<div data-message-model-slug="gpt-4o" dir="auto" data-message-id="02a96677-93d2-4249-83ce-8f84bb29d92b" data-message-author-role="assistant">
+<div>
+<div>
+<p>Earlier models like Recurrent Neural Networks (RNNs) and Long Short-Term Memory (LSTM) networks faced several key limitations, particularly in handling long-range dependencies and scalability. Here’s a closer look at these limitations and why they led to the development of transformer models:</p>
+<h3>1. <strong>Long-Range Dependency Issues</strong></h3>
+<ul>
+<li><strong>Vanishing and Exploding Gradients</strong>: RNNs and LSTMs are known for vanishing and exploding gradients, especially in long sequences. As gradients are backpropagated through many layers (or time steps), they can shrink or grow excessively, which makes it difficult for the model to learn dependencies across distant parts of the sequence.</li>
+<li><strong>Memory Constraints</strong>: Although LSTMs are designed to handle longer dependencies by incorporating memory cells, they are still limited in how far back they can “remember” in a sequence. For very long texts or sequences, they struggle to retain important information from the start of the sequence by the time they reach the end.</li>
+</ul>
+<h3>2. <strong>Sequential Processing and Lack of Parallelization</strong></h3>
+<ul>
+<li><strong>Sequential Nature</strong>: RNNs and LSTMs process sequences one step at a time, which means that each step depends on the previous one. This sequential processing makes it impossible to leverage parallel computing, which is critical for handling large datasets efficiently.</li>
+<li><strong>Slow Training</strong>: Due to their sequential nature, training RNNs and LSTMs is computationally slow, especially for large datasets or long sequences. This also affects inference times, making them less practical for real-time applications on large data.</li>
+</ul>
+<h3>3. <strong>Scalability</strong></h3>
+<ul>
+<li><strong>Poor Handling of Long Sequences</strong>: RNNs and LSTMs are less effective as sequence length increases. This makes them unsuitable for tasks involving very long inputs, such as full documents, long videos, or extensive time-series data.</li>
+<li><strong>Limited Context Window</strong>: Even with mechanisms like attention added to LSTMs, the amount of information that these models can hold from a sequence is limited, often resulting in degraded performance as the sequence length grows.</li>
+</ul>
+<h3>4. <strong>Information Loss Through Recurrent Layers</strong></h3>
+<ul>
+<li><strong>Compressed Representations</strong>: RNNs and LSTMs produce a single fixed-size vector (or “hidden state”) to represent the entire sequence, which means they compress all information into a single context. This compression can result in information loss, especially when handling complex data with multiple layers of meaning.</li>
+</ul>
+<h3>How Transformers Address These Limitations</h3>
+<p>Transformers introduced <strong>self-attention mechanisms</strong> that allow each part of a sequence to consider information from any other part of the sequence, overcoming long-range dependency issues. Transformers also support <strong>parallel processing</strong>, as they do not rely on sequential data processing. This makes them both more efficient and scalable, which has led to their success in tasks involving lengthy sequences and complex dependencies, such as language translation, text summarization, and image generation.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Transformer Models -->
+<div class="content-section">
+<h2>Transformer Models: Revolutionizing Sequence Processing</h2>
+<h3>The Role of Transformers</h3>
+<p>Introduced in 2017, the transformer model, based on the “<a href="NIPS-2017-attention-is-all-you-need-Paper.pdf" target="_self">Attention is all you need</a>” paper, redefined sequence data processing. It replaced the sequential nature of RNNs and LSTMs with the self-attention mechanism, allowing the model to focus on different parts of the input sequence independently.</p>
+<p>The original transformer published in the paper is a neural machine translation model. For example, we can train it to translate English into French sentences.</p>
+<p><strong><img src="https://kikaben.com/transformers-encoder-decoder/images/en-to-fr-translation.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></strong></p>
+<p><strong>Key benefits of transformer models include:</strong></p>
+<ul>
+<li><strong>Scalability</strong>: Efficient processing of large datasets through parallel sequence element processing.</li>
+<li><strong>Self-Attention</strong>: Focuses on relevant sequence parts, capturing dependencies even over long distances.</li>
+<li><strong>Versatility</strong>: Highly adaptable for both supervised and unsupervised tasks.</li>
+</ul>
+<h3>Components of the Transformer Model</h3>
+<p><img src="https://kikaben.com/transformers-encoder-decoder/images/encoder-decoder.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></p>
+<p>img src: <a href="https://kikaben.com/transformers-encoder-decoder/">https://kikaben.com/transformers-encoder-decoder/</a></p>
+<p>The transformer model has two main parts: the encoder and the decoder, each with its own sub-layers:</p>
+<ul>
+<li><strong>Encoder</strong>: The encoder's primary function is to process the input sequence and create an internal, abstract representation of that input. This representation captures essential features of the input sequence, which can be used by the decoder to generate a coherent output. The encoder consists of multiple layers, each containing two critical sub-layers: the self-attention layer and the feedforward neural network.&nbsp;</li>
+<li><strong>Decoder</strong>: The decoder is responsible for generating the output sequence, often word by word. The decoder uses the encoded information from the encoder, allowing it to produce a coherent and contextually accurate sequence in response to the input. Like the encoder, the decoder consists of multiple layers, but it has an additional sub-layer that enables it to use the encoder’s representations effectively.&nbsp;</li>
+</ul>
+<p>We will delve into the architecture of transformers in greater detail later.</p>
+</div>
+<!-- Applications of Transformer Models -->
+<div class="content-section">
+<h2>Applications of Transformer Models</h2>
+<p>Transformers are widely used in various NLP tasks, including:</p>
+<ul>
+<li><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers): BERT, which stands for Bidirectional Encoder Representations from Transformers, is a model developed by Google to understand language in a deeper, more context-aware way. Unlike traditional models that only look at words in one direction (left-to-right or right-to-left), <strong>BERT reads entire sentences at once</strong>, capturing the full context of each word based on the words surrounding it. This approach helps BERT understand meaning more accurately, especially in tasks where context is essential, like question answering or summarizing information. BERT uses two key training techniques: <em>Masked Language Modeling</em>, where it predicts missing words in sentences, and <em>Next Sentence Prediction</em>, where it learns relationships between sentences. These strategies make BERT highly effective at many natural language tasks and adaptable for various applications.&nbsp;</li>
+<li>&nbsp;
+<ul>
+<li><a href="https://towardsdatascience.com/bert-explained-state-of-the-art-language-model-for-nlp-f8b21a9b6270" target="_blank" rel="noopener">Bert explained</a></li>
+<li><a href="BERT%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding.pdf" target="_blank" rel="noopener">BERT paper</a></li>
+</ul>
+</li>
+<li><strong>GPT</strong> (Generative Pretrained Transformer): GPT, or Generative Pretrained Transformer, is a model developed by OpenAI that generates human-like text by predicting what word should come next in a sentence. Unlike BERT, which focuses on understanding context in both directions of a sentence, GPT <strong>reads text from left to right</strong>, making it ideal for generating coherent responses and continuing conversations. GPT is trained on massive amounts of text data and learns to generate text that sounds natural and contextually relevant. It uses a method called <em>causal language modeling</em>, predicting each word based on the previous ones, which is especially useful in applications like chatbots, story generation, and automated writing. This approach allows GPT to create responses and generate content in a way that flows smoothly and makes sense within the given context. <img alt="Model structure of BERT and GPT. | Download Scientific Diagram" src="https://www.researchgate.net/publication/354908597/figure/fig1/AS:1073191841722368@1632880282219/Model-structure-of-BERT-and-GPT.png" data-d2l-editor-default-img-style="true" style="max-width: 100%;"></li>
+</ul>
+</div>
+</div></body></html>
